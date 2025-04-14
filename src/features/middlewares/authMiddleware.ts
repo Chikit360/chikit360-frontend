@@ -1,6 +1,6 @@
 import { Middleware, createAction } from '@reduxjs/toolkit';
 import { clean, setUser } from '../auth/user.slice';
-import axiosInstance from '../../utils/axiosInstance';
+import {axiosInstance} from '../../utils/axiosInstance';
 
 // Create a type-safe action
 export const checkAuth = createAction('auth/checkAuth');

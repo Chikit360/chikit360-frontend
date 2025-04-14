@@ -1,6 +1,6 @@
 // src/features/admin/adminThunk.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../utils/axiosInstance';
+import {axiosInstance} from '../../utils/axiosInstance';
 
 export const fetchDashboardAnalytics = createAsyncThunk(
   'admin/fetchDashboardAnalytics',

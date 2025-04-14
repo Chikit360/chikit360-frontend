@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import axiosInstance from '../../utils/axiosInstance'
+import {axiosInstance} from '../../utils/axiosInstance'
 
 interface LoginCredentials {
   username: string

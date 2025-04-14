@@ -1,6 +1,6 @@
 // store/sell/sellApi.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axiosInstance from '../../utils/axiosInstance';
+import {axiosInstance} from '../../utils/axiosInstance';
 // Create Sale
 export const createSale = createAsyncThunk(
     'sale/createSale',

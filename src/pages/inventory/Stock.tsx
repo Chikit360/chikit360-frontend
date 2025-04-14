@@ -59,17 +59,17 @@ const Stock: React.FC = () => {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <h1 className="text-3xl font-bold mb-6">Inventory Management</h1>
 
       {/* Layout Section */}
       <div className="w-full h-full flex justify-between items-start gap-1">
         {/* Medicine List Section */}
-        <div className={`transition-all duration-300 ${selectedItem ? 'w-0 md:w-1/3' : 'w-full'} bg-white dark:bg-white/[0.03] border-gray-200 dark:border-gray-900 rounded-lg shadow-sm`}>
+        <div className={`h-[calc(100vh-220px)] transition-all duration-300 ${selectedItem ? 'w-0 md:w-1/3' : 'w-full'} bg-white dark:bg-white/[0.03] border-gray-200 dark:border-gray-900 rounded-lg shadow-sm`}>
           {filteredData?.length === 0 ? (
             <div className="w-full h-full flex flex-col items-center justify-center">
               <p className="text-gray-500">No stock available.</p>
-              <Button onClick={() => console.log('Add Inventory')}>Add Inventory</Button>
+             
             </div>
           ) : (
             <div className=" max-h-[calc(100vh-200px)] overflow-x-auto overflow-y-auto rounded-lg">

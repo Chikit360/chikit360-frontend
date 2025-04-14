@@ -6,10 +6,14 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
+import { useSelector } from "react-redux";
+import { RootState } from "../features/store";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
+
+  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,6 +56,7 @@ const AppHeader: React.FC = () => {
       setQuery(decodeURIComponent(queryFromUrl));
     }
   }, [searchParams]);
+  
 
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-80 dark:border-gray-800 dark:bg-gray-900 lg:border-b">

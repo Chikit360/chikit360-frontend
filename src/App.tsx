@@ -9,22 +9,20 @@ import AppLayout from "./layout/AppLayout";
 import useOnlineStatus from "./hooks/useOnlineStatus";
 import NotFound from "./pages/OtherPage/NotFound";
 import { authRoutes, protectedRoutes } from "./constants/route";
-import { fetchDropdownOptions } from "./features/dropDown/dropDownApi";
 
 
 
 
 export default function App() {
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const {isAuthenticated,user} = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
   const isOnline = useOnlineStatus();
 
   useEffect(() => {
     dispatch({ type: 'auth/checkAuth' });
-    dispatch(fetchDropdownOptions("strength"));  // Fetch Category dropdown
-    dispatch(fetchDropdownOptions("form"));   // Fetch Gender dropdown
+    
 
-  }, [dispatch]);
+  }, [dispatch,]);
 
   if (!isOnline) {
     return <div className="flex justify-center items-center h-screen">
@@ -46,7 +44,7 @@ export default function App() {
       <Routes>
         {/* Auth Routes */}
         {authRoutes.map(({ path, element }) => (
-          <Route key={path} path={path} element={isAuthenticated ? <Navigate to="/" /> : element} />
+          <Route key={path} path={path} element={isAuthenticated ? user?.role==='superAdmin'? <Navigate to="/admin/dashboard" /> : <Navigate to="/" /> : element} />
         ))}
         
         {/* Protected Routes */}

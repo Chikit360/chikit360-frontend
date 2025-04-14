@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axiosInstance";
+import {axiosInstance} from "../../utils/axiosInstance";
 
 // Define the async thunk for fetching all customers
 export const fetchAllCustomers = createAsyncThunk(
