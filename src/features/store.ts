@@ -8,6 +8,7 @@ import inventoryReducer from './inventory/inventory.slice';
 import customerReducer from './customer/customerSlice';
 import adminReducer from './admin/adminSlice';
 import dropdownReducer from './dropDown/dropDownSlice';
+import notificationSettingReducer from './notificationSetting/notificationSettingSlice';
 
 const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ const store = configureStore({
     activeMedicines:activeMedicineReducer,
     sales: saleReducer,
     customers:customerReducer,
-    dropDown:dropdownReducer
+    dropDown:dropdownReducer,
+    notificationSetting:notificationSettingReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

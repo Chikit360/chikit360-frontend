@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../features/store";
 import { getAllMedicines } from "../features/medicine/medicineApi";
 import Breadcrumb from "../components/breadcrumb/BreadCrumb";
+import { fetchNotificationSettings } from "../features/notificationSetting/notificationSettingApi";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -39,7 +40,7 @@ const AppLayout: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getAllMedicines());
-  
+    dispatch(fetchNotificationSettings())
     
   }, [dispatch])
   
