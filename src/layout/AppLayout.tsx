@@ -12,6 +12,7 @@ import { getAllHospitals } from "../features/hospitals/hospitalApi";
 import { fetchDropdownOptions } from "../features/dropDown/dropDownApi";
 import { fetchNotificationCount } from "../features/notifications/notificationApi";
 import { getUserRole } from "../features/auth/user.slice";
+import { fetchNotificationSettings } from "../features/notificationSetting/notificationSettingApi";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -50,8 +51,8 @@ const AppLayout: React.FC = () => {
       dispatch(fetchDropdownOptions("strength"));  // Fetch Category dropdown
       dispatch(fetchDropdownOptions("form"));   // Fetch Gender dropdown
       dispatch(fetchNotificationCount());   // Fetch Gender dropdown
+      dispatch(fetchNotificationSettings())
     }
-  
     
   }, [dispatch])
   

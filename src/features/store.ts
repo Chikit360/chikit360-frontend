@@ -10,6 +10,7 @@ import adminReducer from './admin/adminSlice';
 import dropdownReducer from './dropDown/dropDownSlice';
 import notificationReducer from './notifications/notificationSlice';
 import hospitalReducer from './hospitals/hospital.slice';
+import notificationSettingReducer from './notificationSetting/notificationSettingSlice';
 
 const store = configureStore({
   reducer: {
@@ -22,7 +23,8 @@ const store = configureStore({
     customers:customerReducer,
     dropDown:dropdownReducer,
     notifications: notificationReducer,
-    hospitals: hospitalReducer
+    hospitals: hospitalReducer,
+    notificationSetting:notificationSettingReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
