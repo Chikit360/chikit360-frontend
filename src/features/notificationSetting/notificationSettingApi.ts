@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../utils/axiosInstance';
-import axiosInstance from '../../utils/axiosInstance';
+
+import {axiosInstance} from '../../utils/axiosInstance';
 import { AxiosError } from 'axios';
 
 export const fetchNotificationSettings = createAsyncThunk(
