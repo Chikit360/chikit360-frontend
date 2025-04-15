@@ -22,7 +22,7 @@ export const fetchNotificationSettings = createAsyncThunk(
 
 export const updateNotificationSettings = createAsyncThunk(
   'notification/updateSettings',
-  async (settings:Partial<{emailNotifications:boolean,inAppNotifications:boolean}>, thunkAPI) => {
+  async (settings:Partial<{email:string,password:string,emailNotifications:boolean,inAppNotifications:boolean}>, thunkAPI) => {
     try {
       const response = await axiosInstance.put('/notification-settings', settings);
       return response.data.data;
