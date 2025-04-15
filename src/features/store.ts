@@ -7,14 +7,18 @@ import authMiddleware from './middlewares/authMiddleware'
 import inventoryReducer from './inventory/inventory.slice';
 import customerReducer from './customer/customerSlice';
 import adminReducer from './admin/adminSlice';
+import superAdminReducer from './superAdmin/superAdminSlice';
 import dropdownReducer from './dropDown/dropDownSlice';
 import notificationReducer from './notifications/notificationSlice';
 import hospitalReducer from './hospitals/hospital.slice';
 import notificationSettingReducer from './notificationSetting/notificationSettingSlice';
+import userReducer from './user/userSlice';
 
 const store = configureStore({
   reducer: {
     admin: adminReducer,
+    users:userReducer,
+    superAdmin: superAdminReducer,
     auth: authReducer,
     medicine:medicineReducer,
     inventory:inventoryReducer,

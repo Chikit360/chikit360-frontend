@@ -8,6 +8,7 @@ interface UserData {
   email: string;
   role:string;
   token: string | null;
+  hospital:string;
 }
 
 interface User {

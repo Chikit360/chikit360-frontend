@@ -14,10 +14,14 @@ import CustomerHistory from "../pages/user/CustomerHistory";
 import CustomerList from "../pages/user/CustomerList";
 import UserProfiles from "../pages/UserProfiles";
 import StrengthDropDown from "../pages/utility/StrengthDropDown";
-import AdminDashboard from "../admin/pages/Dashboard/AdminDashboard";
+import SuperAdminDashboard from "../admin/pages/Dashboard/SuperAdminDashboard";
 import HospitalList from "../admin/pages/hospitals/HospitalList";
 import HospitalForm from "../admin/pages/hospitals/HospitalForm";
 import UpdateHospital from "../admin/pages/hospitals/UpdateHospital";
+import PharmacyDetails from "../admin/pages/hospitals/PharmacyDetails";
+import UserList from "../pages/user/UserList";
+import UserCreate from "../pages/user/UserCreate";
+import UserUpdate from "../pages/user/UserUpdate";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -40,10 +44,19 @@ export const authRoutes = [
 
 
 
-    { path: "/admin/dashboard",params:[], element: <AdminDashboard /> },
+    { path: "/admin/dashboard",params:[], element: <SuperAdminDashboard /> },
+
+    
     { path: "/admin/strength",params:[], element: <StrengthDropDown /> },
     { path: "/admin/form",params:[], element: <FormDropDown /> },
-    { path: "/admin/hospitals/items",params:[], element: <HospitalList /> },
-    { path: "/admin/hospitals/items/add",params:[], element: <HospitalForm /> },
-    { path: "/admin/hospitals/items/:id/edit",params:[], element: <UpdateHospital /> }
+    { path: "/admin/pharmacy/items",params:[], element: <HospitalList /> },
+    { path: "/admin/pharmacy/items/add",params:[], element: <HospitalForm /> },
+    { path: "/admin/pharmacy/items/:id/edit",params:[], element: <UpdateHospital /> },
+    { path: "/admin/pharmacy/items/:id",params:[], element: <PharmacyDetails /> },
+
+
+    { path: "/admin/users/items",params:[], element: <UserList /> },
+    { path: "/admin/users/items/add",params:[], element: <UserCreate /> },
+    { path: "/admin/users/items/:id/edit",params:[], element: <UserUpdate /> },
+    // { path: "/admin/users/items/:id",params:[], element: <PharmacyDetails /> }
   ];

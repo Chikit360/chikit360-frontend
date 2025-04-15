@@ -1,42 +1,8 @@
-import UserMetaCard from "../components/UserProfile/UserMetaCard";
-import UserInfoCard from "../components/UserProfile/UserInfoCard";
-import UserAddressCard from "../components/UserProfile/UserAddressCard";
-import PageMeta from "../components/common/PageMeta";
-import NotificationSettings from "../components/notofication/Notification";
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { AppDispatch, RootState } from "../features/store";
-import { useEffect } from "react";
-import { getHospitalById } from "../features/hospitals/hospitalApi";
-
-
-
-export default function UserProfiles() {
-  const { user, } = useSelector((state: RootState) => state.auth);
-  return (
-    <>
-      <PageMeta
-        title="React.js Profile Dashboard | Chikit-Thundergits - Next.js Admin Dashboard Template"
-        description="This is React.js Profile Dashboard page for Chikit-Thundergits - React.js Tailwind CSS Admin Dashboard Template"
-      />
-      
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <h3 className="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
-          Profile
-        </h3>
-        <div className="space-y-6">
-          <UserMetaCard user={user} />
-          <UserInfoCard user={user} />
-          <PharmacyDetails user={user} />
-
-         <NotificationSettings/>
-        </div>
-      </div>
-    </>
-  );
-}
-
-
+import { AppDispatch, RootState } from '../../../features/store';
+import { getHospitalById } from '../../../features/hospitals/hospitalApi';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200">
@@ -45,15 +11,14 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
   </div>
 );
 
-const PharmacyDetails = ({user}:{user:any}) => {
-
+const PharmacyDetails = () => {
+  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { selectedHospital, loading } = useSelector((state: RootState) => state.hospitals);
-  
 
   useEffect(() => {
-    dispatch(getHospitalById(user?.hospital || ''));
-  }, [dispatch, user]);
+    dispatch(getHospitalById(id || ''));
+  }, [dispatch, id]);
 
   if (loading || !selectedHospital) {
     return (
@@ -67,6 +32,11 @@ const PharmacyDetails = ({user}:{user:any}) => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
+      <div className="text-center">
+        <h2 className="text-4xl font-bold text-gray-900 mb-2">{hospital.name}</h2>
+        <p className="text-sm text-gray-500">Comprehensive Pharmacy Overview</p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Section title="General Information">
           <p><strong>Owner:</strong> {hospital.ownerName}</p>
@@ -126,3 +96,4 @@ const PharmacyDetails = ({user}:{user:any}) => {
   );
 };
 
+export default PharmacyDetails;

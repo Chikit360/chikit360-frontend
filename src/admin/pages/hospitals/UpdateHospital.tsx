@@ -183,22 +183,22 @@ const UpdateHospital = () => {
 
     
     // Medical Equipment
-    formData.medicalEquipment.forEach((item, index) => {
-      if (!item.name.trim()) errors[`equipmentName_${index}`] = `Equipment ${index + 1} name is required`;
-      if (item.quantity <= 0) errors[`equipmentQuantity_${index}`] = `Valid quantity for equipment ${index + 1} is required`;
-    });
+    // formData.medicalEquipment.forEach((item, index) => {
+    //   if (!item.name.trim()) errors[`equipmentName_${index}`] = `Equipment ${index + 1} name is required`;
+    //   if (item.quantity <= 0) errors[`equipmentQuantity_${index}`] = `Valid quantity for equipment ${index + 1} is required`;
+    // });
 
   
     // Financials
-    if (formData.financials.annualRevenue <= 0) errors.annualRevenue = 'Valid annual revenue is required';
-    if (!formData.financials.hospitalFunding.trim()) errors.hospitalFunding = 'Hospital funding type is required';
+    // if (formData.financials.annualRevenue <= 0) errors.annualRevenue = 'Valid annual revenue is required';
+    // if (!formData.financials.hospitalFunding.trim()) errors.hospitalFunding = 'Hospital funding type is required';
 
     // Doctors
     // if (formData.doctors.length === 0) errors.doctors = 'At least one doctor must be selected';
 
-    if (!formData.governmentSchemes || formData.governmentSchemes.length === 0) {
-      errors.governmentSchemes = "At least one government scheme must be selected";
-    }
+    // if (!formData.governmentSchemes || formData.governmentSchemes.length === 0) {
+    //   errors.governmentSchemes = "At least one government scheme must be selected";
+    // }
 
 
   
@@ -232,7 +232,7 @@ const UpdateHospital = () => {
 
               {/* Clinic Name */}
               <div className="">
-                <Label>Hospital Name</Label>
+                <Label>Pharmacy Name</Label>
                 <input
                   type="text"
                   value={formData.name}
@@ -579,7 +579,7 @@ const UpdateHospital = () => {
 
                   {/* Hospital Funding */}
                   <div>
-                    <Label>Hospital Funding</Label>
+                    <Label>Pharmacy Funding</Label>
                     <input
                       type="text"
                       value={formData.financials.hospitalFunding}

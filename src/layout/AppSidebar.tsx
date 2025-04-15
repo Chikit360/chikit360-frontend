@@ -29,7 +29,7 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Home",
-    subItems: [{ name: "Dashboard", path: "/", pro: false }],
+    subItems: [{ name: "Dashboard", path: "/", pro: false }, { name: "Profile", path: "/profile", pro: false },],
   },
   {
     icon: <MedicineIcon />,
@@ -51,8 +51,8 @@ const superAdminNavItems: NavItem[] = [
   },
   {
     icon: <MedicineIcon />,
-    name: "Hospital",
-    subItems: [{ name: "Items", path: "/admin/hospitals/items", pro: false }],
+    name: "Pharmacy",
+    subItems: [{ name: "Items", path: "/admin/pharmacy/items", pro: false }],
   },
   
  
@@ -66,7 +66,7 @@ const othersItems: NavItem[] = [
     subItems: [
       { name: "Strength", path: "/admin/strength",role:["admin"], pro: false },
       { name: "Form", path: "/admin/form",role:["admin"], pro: false },
-      { name: "Profile", path: "/profile", pro: false },
+      { name: "User", path: "/admin/users/items",role:["admin"], pro: false },
     ],
   },
   // {
@@ -360,22 +360,26 @@ const AppSidebar: React.FC = () => {
               </h2>
               {renderMenuItems(userRole ==='superAdmin'? superAdminNavItems:navItems, "main")}
             </div>
-            <div className="">
-              <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
-                }`}
-              >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
-                ) : (
-                  <HorizontaLDots />
-                )}
-              </h2>
-              {renderMenuItems(othersItems, "others")}
-            </div>
+            {
+  othersItems
+    .some(
+      (item) =>
+        item.subItems &&
+        item.subItems.some((sub) => sub.role?.includes(userRole!))
+    ) && (
+    <div>
+      <h2
+        className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
+          !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+        }`}
+      >
+        {isExpanded || isHovered || isMobileOpen ? "Others" : <HorizontaLDots />}
+      </h2>
+      {renderMenuItems(othersItems, "others")}
+    </div>
+  )
+}
+
           </div>
         </nav>
         {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}

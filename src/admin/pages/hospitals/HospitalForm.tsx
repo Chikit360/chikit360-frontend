@@ -152,7 +152,7 @@ const HospitalForm = () => {
     if (!formData.ownerName.trim()) errors.ownerName = 'Owner name is required';
     if (!formData.registrationNumber.trim()) errors.registrationNumber = 'Registration number is required';
     if (formData.yearEstablished <= 0) errors.yearEstablished = 'Valid year of establishment is required';
-    if (!formData.licenseNumber.trim()) errors.licenseNumber = 'License number is required';
+    // if (!formData.licenseNumber.trim()) errors.licenseNumber = 'License number is required';
 
     // Address
     if (!formData.address.street.trim()) errors.addressStreet = 'Street address is required';
@@ -178,10 +178,10 @@ const HospitalForm = () => {
     // if (formData.staffCount.doctors <= 0) errors.staffDoctors = 'At least one doctor is required';
 
     // Medical Equipment
-    formData.medicalEquipment.forEach((item, index) => {
-      if (!item.name.trim()) errors[`equipmentName_${index}`] = `Equipment ${index + 1} name is required`;
-      if (item.quantity <= 0) errors[`equipmentQuantity_${index}`] = `Valid quantity for equipment ${index + 1} is required`;
-    });
+    // formData.medicalEquipment.forEach((item, index) => {
+    //   if (!item.name.trim()) errors[`equipmentName_${index}`] = `Equipment ${index + 1} name is required`;
+    //   if (item.quantity <= 0) errors[`equipmentQuantity_${index}`] = `Valid quantity for equipment ${index + 1} is required`;
+    // });
 
     // Media
     // if (!formData.media.logo.trim()) errors.logo = 'Clinic logo is required';
@@ -197,15 +197,15 @@ const HospitalForm = () => {
     // if (!formData.legalDocuments.registrationCertificate.trim()) errors.registrationCertificate = 'Registration certificate is required';
 
     // Financials
-    if (formData.financials.annualRevenue <= 0) errors.annualRevenue = 'Valid annual revenue is required';
-    if (!formData.financials.hospitalFunding.trim()) errors.hospitalFunding = 'Hospital funding type is required';
+    // if (formData.financials.annualRevenue <= 0) errors.annualRevenue = 'Valid annual revenue is required';
+    // if (!formData.financials.hospitalFunding.trim()) errors.hospitalFunding = 'Hospital funding type is required';
 
     // Doctors
     // if (formData.doctors.length === 0) errors.doctors = 'At least one doctor must be selected';
 
-    if (!formData.governmentSchemes || formData.governmentSchemes.length === 0) {
-      errors.governmentSchemes = "At least one government scheme must be selected";
-    }
+    // if (!formData.governmentSchemes || formData.governmentSchemes.length === 0) {
+    //   errors.governmentSchemes = "At least one government scheme must be selected";
+    // }
 
 
     // Branch Code
@@ -332,7 +332,7 @@ const HospitalForm = () => {
     <>
 
       <div className="p-8">
-        <h1 className="text-2xl font-bold mb-6">Add Hospital</h1>
+        <h1 className="text-2xl font-bold mb-6">Add Pharmacy</h1>
         <form onSubmit={handleSubmit} >
 
           <div className='flex flex-col md:flex-row gap-2'>
@@ -342,7 +342,7 @@ const HospitalForm = () => {
 
               {/* Clinic Name */}
               <div className="">
-                <Label>Hospital Name</Label>
+                <Label required={true} >Pharmacy Name</Label>
                 <input
                   type="text"
                   value={formData.name}
@@ -352,15 +352,18 @@ const HospitalForm = () => {
                 {formErrors.name && <p className="text-red-500 text-sm">{formErrors.name}</p>}
               </div>
               <div className="">
-                <Label>Admin Email</Label>
+                <Label required={true}>Admin Email</Label>
                 <input
                   type="text"
                   value={formData.adminEmail}
                   onChange={(e) => setFormData({ ...formData, adminEmail: e.target.value })}
                   className="h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
                 />
-                <p className="text-orange-500 text-sm">This email is for admin login</p>
+                <div className='flex justify-between items-center'>
                 {formErrors.adminEmail && <p className="text-red-500 text-sm">{formErrors.adminEmail}</p>}
+                <p className="text-orange-500 text-sm">This email is for admin login</p>
+
+                </div>
               </div>
 
               {/* Specialties */}
@@ -407,7 +410,7 @@ const HospitalForm = () => {
 
               {/* Year Established */}
               <div className="">
-                <Label>Year Established</Label>
+                <Label required={true}>Year Established</Label>
                 <input
                   type="number"
                   value={formData.yearEstablished}
@@ -431,7 +434,7 @@ const HospitalForm = () => {
 
               {/* Registration Number */}
               <div className="">
-                <Label>Registration Number</Label>
+                <Label required={true}>Registration Number</Label>
                 <input
                   type="text"
                   value={formData.registrationNumber}
@@ -443,7 +446,7 @@ const HospitalForm = () => {
 
               {/* Owner Name */}
               <div className="">
-                <Label>Owner Name</Label>
+                <Label required={true}>Owner Name</Label>
                 <input
                   type="text"
                   value={formData.ownerName}
@@ -455,7 +458,7 @@ const HospitalForm = () => {
 
               {/* Operational Details */}
               <div className="">
-                <Label>Operational Details</Label>
+                <Label required={true}>Operational Details</Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                   {/* Open Days */}
                   <Select
@@ -470,6 +473,8 @@ const HospitalForm = () => {
                   {formErrors.openDays && <p className="text-red-500 text-sm col-span-2">{formErrors.openDays}</p>}
 
                   {/* Open Time */}
+                  <div>
+                  <Label required={true}>Opening Time</Label>
                   <input
                     type="time"
                     value={formData.operationalDetails.openTime}
@@ -477,8 +482,11 @@ const HospitalForm = () => {
                     className="h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
                   />
                   {formErrors.openTime && <p className="text-red-500 text-sm">{formErrors.openTime}</p>}
+                  </div>
 
                   {/* Close Time */}
+                  <div>
+                  <Label required={true}>Closing Time</Label>
                   <input
                     type="time"
                     value={formData.operationalDetails.closeTime}
@@ -486,9 +494,10 @@ const HospitalForm = () => {
                     className="h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
                   />
                   {formErrors.closeTime && <p className="text-red-500 text-sm">{formErrors.closeTime}</p>}
+                  </div>
 
                   {/* Emergency Available */}
-                  <div>
+                  <div className='my-4 flex gap-2 items-center'>
                     <Label>Emergency Available</Label>
                     <input
                       type="checkbox"
@@ -499,7 +508,7 @@ const HospitalForm = () => {
                   </div>
 
                   {/* 24x7 */}
-                  <div>
+                  <div className='my-4 flex gap-2 items-center'>
                     <Label>24x7 Availability</Label>
                     <input
                       type="checkbox"
@@ -593,6 +602,7 @@ const HospitalForm = () => {
               <h2 className="text-xl font-semibold mb-2">Address Details</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                 <div>
+                <Label required={true}>Street</Label>
                   <input
                     placeholder="Street"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -605,6 +615,7 @@ const HospitalForm = () => {
                 </div>
 
                 <div>
+                <Label required={true}>City</Label>
                   <input
                     placeholder="City"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -617,6 +628,7 @@ const HospitalForm = () => {
                 </div>
 
                 <div>
+                <Label required={true}>State</Label>
                   <input
                     placeholder="State"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -629,6 +641,7 @@ const HospitalForm = () => {
                 </div>
 
                 <div>
+                <Label required={true}>Zip Code</Label>
                   <input
                     placeholder="Zip Code"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -643,6 +656,7 @@ const HospitalForm = () => {
                 </div>
 
                 <div>
+                <Label required={true}>Country</Label>
                   <input
                     placeholder="Country"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -657,6 +671,7 @@ const HospitalForm = () => {
                 </div>
 
                 <div>
+                <Label >Landmark</Label>
                   <input
                     placeholder="Landmark"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -676,6 +691,7 @@ const HospitalForm = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
                   <div>
+                    <Label required={true}>Phone</Label>
                     <input
                       placeholder="Phone"
                       className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -688,6 +704,7 @@ const HospitalForm = () => {
                   </div>
 
                   <div>
+                  <Label >WhatsApp</Label>
                     <input
                       placeholder="WhatsApp"
                       className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -700,6 +717,7 @@ const HospitalForm = () => {
                   </div>
 
                   <div>
+                  <Label required={true}>Contact Email</Label>
                     <input
                       placeholder="Email"
                       className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -755,7 +773,7 @@ const HospitalForm = () => {
 
                   {/* Hospital Funding */}
                   <div>
-                    <Label>Hospital Funding</Label>
+                    <Label>Pharmacy Funding</Label>
                     <input
                       type="text"
                       value={formData.financials.hospitalFunding}

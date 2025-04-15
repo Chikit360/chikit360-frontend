@@ -44,7 +44,7 @@ export default function HospitalList() {
       <div className='flex justify-center items-center flex-col'>
         <div className="p-8 text-center text-gray-500 text-lg">No hospital available.</div>
         <Button>
-          <Link to={"/admin/hospitals/items/add"}>Add Hospital</Link>  {/* Changed URL for adding hospital */}
+          <Link to={"/admin/pharmacy/items/add"}>Add Pharmacy</Link>  {/* Changed URL for adding hospital */}
         </Button>
       </div>
     );
@@ -53,9 +53,9 @@ export default function HospitalList() {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:bg-white/[0.03] dark:border-gray-900">
       <div className='w-full p-4 flex justify-between items-center'>
-        <div className='text-3xl font-medium'>Hospital List</div>  {/* Changed title to Hospital List */}
+        <div className='text-3xl font-medium'>Pharmacy List</div>  {/* Changed title to Hospital List */}
         <Button>
-          <Link to={"/admin/hospitals/items/add"}>Add Hospital</Link>  {/* Changed URL for adding hospital */}
+          <Link to={"/admin/pharmacy/items/add"}>Add Pharmacy</Link>  {/* Changed URL for adding hospital */}
         </Button>
       </div>
       <div className="max-w-full overflow-x-auto">
@@ -73,7 +73,7 @@ export default function HospitalList() {
               <TableRow className='border-gray-200 dark:border-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800' key={hospital._id}>
                 {/* <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">{hospital._id}</TableCell> */}
                 <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">
-                  <p title={hospital.name} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.name}</p>
+                  <p title={hospital.name} className='text-blue-500 whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'><Link to={`/admin/pharmacy/items/${hospital._id}`} > {hospital.name}</Link></p>
                 </TableCell>
                 <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">
                   <p title={hospital.address.state} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.address.state}</p>
@@ -83,7 +83,7 @@ export default function HospitalList() {
                 </TableCell>
                 <TableCell className=''>
                   <div className='w-full h-full flex gap-2 justify-around items-center'>
-                    <Link to={`/admin/hospitals/items/${hospital._id}/edit`}>  {/* Changed URL for editing hospital */}
+                    <Link to={`/admin/pharmacy/items/${hospital._id}/edit`}>  {/* Changed URL for editing hospital */}
                       <PencilIcon className='dark:text-white' />
                     </Link>
                     <Link to="#"
