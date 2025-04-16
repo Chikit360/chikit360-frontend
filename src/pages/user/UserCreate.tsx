@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../features/store';
 import { createUser } from '../../features/user/userApiThunk';
 import Select from 'react-select';
+import Label from '../../components/form/Label';
 
 const UserCreate = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,12 +38,21 @@ const UserCreate = () => {
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl mt-10 shadow">
       <h2 className="text-2xl font-bold mb-4">Create User</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+        <Label required={true} >Email</Label>
         <input type="email" name="email" placeholder="Email" onChange={handleChange} className="w-full border px-3 py-2 rounded" required />
+        </div>
+        <div>
+        <Label required={true} >Password</Label>
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="w-full border px-3 py-2 rounded" required />
+        </div>
 
+        <div>
+        <Label required={true} >Role</Label>
         <Select name="role" options={[...roles.map(role => (
           { value: role, label: role.charAt(0).toUpperCase() + role.slice(1) }
-          ))]} onChange={(selected)=>setFormData({ ...formData, role: selected?.value || 'customer' })} className="w-full border px-3 py-2 rounded"/>
+          ))]} onChange={(selected)=>setFormData({ ...formData, role: selected?.value || 'customer' })} className="w-full px-3 py-2 rounded"/>
+        </div>
           
         
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">

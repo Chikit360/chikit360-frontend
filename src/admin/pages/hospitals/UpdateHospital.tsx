@@ -232,7 +232,7 @@ const UpdateHospital = () => {
 
               {/* Clinic Name */}
               <div className="">
-                <Label>Pharmacy Name</Label>
+                <Label required={true}>Pharmacy Name</Label>
                 <input
                   type="text"
                   value={formData.name}
@@ -259,7 +259,7 @@ const UpdateHospital = () => {
 
               {/* Services Offered */}
               <div className="">
-                <Label>Services Offered</Label>
+                <Label required={true} >Services Offered</Label>
                 <Select
                   isMulti
                   value={formData.servicesOffered.map(item=>({label:item,value:item}))}
@@ -288,7 +288,7 @@ const UpdateHospital = () => {
 
               {/* Year Established */}
               <div className="">
-                <Label>Year Established</Label>
+                <Label required={true} >Year Established</Label>
                 <input
                   type="number"
                   value={formData.yearEstablished}
@@ -300,7 +300,7 @@ const UpdateHospital = () => {
 
               {/* License Number */}
               <div className="">
-                <Label>License Number</Label>
+                <Label required={true}>License Number</Label>
                 <input
                   type="text"
                   value={formData.licenseNumber}
@@ -312,7 +312,7 @@ const UpdateHospital = () => {
 
               {/* Registration Number */}
               <div className="">
-                <Label>Registration Number</Label>
+                <Label required={true}>Registration Number</Label>
                 <input
                   type="text"
                   value={formData.registrationNumber}
@@ -324,7 +324,7 @@ const UpdateHospital = () => {
 
               {/* Owner Name */}
               <div className="">
-                <Label>Owner Name</Label>
+                <Label required={true}>Owner Name</Label>
                 <input
                   type="text"
                   value={formData.ownerName}
@@ -336,7 +336,7 @@ const UpdateHospital = () => {
 
               {/* Operational Details */}
               <div className="">
-                <Label>Operational Details</Label>
+                <Label required={true}>Operational Details</Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                   {/* Open Days */}
                   <Select
@@ -353,6 +353,8 @@ const UpdateHospital = () => {
 
                   
                    {/* Open Time */}
+                   <div>
+                    <Label required={true}>Open Time</Label>
                    <input
                     type="time"
                     value={formData.operationalDetails.openTime}
@@ -360,9 +362,12 @@ const UpdateHospital = () => {
                     className="h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
                   />
                   {formErrors.openTime && <p className="text-red-500 text-sm">{formErrors.openTime}</p>}
+                   </div>
 
 
                                 {/* Close Time */}
+                                <div>
+                                <Label required={true}>Close Time</Label>
                                 <input
                     type="time"
                     value={formData.operationalDetails.closeTime}
@@ -370,6 +375,7 @@ const UpdateHospital = () => {
                     className="h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
                   />
                   {formErrors.closeTime && <p className="text-red-500 text-sm">{formErrors.closeTime}</p>}
+                                </div>
 
                  
 
@@ -467,6 +473,7 @@ const UpdateHospital = () => {
               <h2 className="text-xl font-semibold mb-2">Address Details</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
               <div>
+                  <Label required={true}>Street</Label>
                   <input
                     placeholder="Street"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -477,6 +484,7 @@ const UpdateHospital = () => {
                   />
                   {formErrors.addressStreet && <p className="text-red-500 text-sm">{formErrors.addressStreet}</p>}
                 </div> <div>
+                  <Label required={true}>City</Label>
                   <input
                     placeholder="City"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -487,6 +495,7 @@ const UpdateHospital = () => {
                   />
                   {formErrors.addressCity && <p className="text-red-500 text-sm">{formErrors.addressCity}</p>}
                 </div> <div>
+                  <Label required={true}>State</Label>
                   <input
                     placeholder="State"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -497,6 +506,7 @@ const UpdateHospital = () => {
                   />
                   {formErrors.addressState && <p className="text-red-500 text-sm">{formErrors.addressState}</p>}
                 </div> <div>
+                  <Label required={true}>Zip Code</Label>
                   <input
                     placeholder="Zip Code"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -509,6 +519,7 @@ const UpdateHospital = () => {
                     <p className="text-red-500 text-sm">{formErrors.addressZipCode}</p>
                   )}
                 </div> <div>
+                  <Label required={true}>Country</Label>
                   <input
                     placeholder="Country"
                     className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -520,7 +531,11 @@ const UpdateHospital = () => {
                   {formErrors.addressCountry && (
                     <p className="text-red-500 text-sm">{formErrors.addressCountry}</p>
                   )}
-                </div><input placeholder="Landmark" className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5" value={formData.address.landmark} onChange={(e) => setFormData({ ...formData, address: { ...formData.address, landmark: e.target.value } })} />
+                </div>
+              <div>
+                  <Label>Landmark</Label>
+                <input placeholder="Landmark" className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5" value={formData.address.landmark} onChange={(e) => setFormData({ ...formData, address: { ...formData.address, landmark: e.target.value } })} />
+              </div>
               </div>
 
               {/* Contact Group */}
@@ -528,6 +543,7 @@ const UpdateHospital = () => {
                 <h2 className="text-xl font-semibold mb-2">Contact Details</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
+                    <Label required={true}>Phone</Label>
                     <input
                       placeholder="Phone"
                       className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
@@ -537,8 +553,13 @@ const UpdateHospital = () => {
                       }
                     />
                     {formErrors.contactPhone && <p className="text-red-500 text-sm">{formErrors.contactPhone}</p>}
-                  </div> <input placeholder="WhatsApp" className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5" value={formData.contact.whatsapp} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, whatsapp: e.target.value } })} />
+                  </div>
                   <div>
+                    <Label>Whatsapp</Label>
+                   <input placeholder="WhatsApp" className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5" value={formData.contact.whatsapp} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact, whatsapp: e.target.value } })} />
+                 </div>
+                  <div>
+                    <Label required={true}>Email</Label>
                     <input
                       placeholder="Email"
                       className="input h-9 w-full rounded-md border border-gray-300 px-4 py-2.5"
