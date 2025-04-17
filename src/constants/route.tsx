@@ -42,7 +42,7 @@ export const authRoutes = [
     { path: "/customer/:id/purchase-history",params:["id"], element: <CustomerHistory /> },
     { path: "/customer-list",params:[], element: <CustomerList /> },
     { path: "/profile",params:[], element: <UserProfiles /> },
-    { path: "/subscription",params:[], element: <SubscriptionPlan /> },
+    { path: "/subscription/:offerId",params:["offerId"], element: <SubscriptionPlan /> },
 
 
 

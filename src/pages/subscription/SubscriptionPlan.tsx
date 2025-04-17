@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import LoadingOverlay from "../../components/loader/LoadingOverlay";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const plans = {
   basic: {
@@ -39,15 +40,15 @@ const plans = {
 
 
 const SubscriptionPlan = () => {
-  const [searchParams] = useSearchParams();
-  const type = searchParams.get("type") || "basic";
-  const plan = plans[type];
+  const {offerId} = useParams();
+  
+  const plan = plans["basic"];
   const { error, isLoading, Razorpay } = useRazorpay();
 
   const handlePayment = async() => {
 
     // creating a new order
-    const result = await axios.post(`${ import .meta.env.VITE_API_URL}/payment/orders`);
+    const result = await axiosInstance.post(`/payment/orders?offerId=${offerId}`);
 
     if (!result) {
         alert("Server error. Are you online?");
@@ -65,11 +66,11 @@ const SubscriptionPlan = () => {
       description: "Test Transaction",
       order_id: order_id, // Generate order_id on server
       handler: async(response) => {
-        console.log(response);
+        console.log({...response,razorpay_order_id:order_id});
         
-        const result = await axios.post(`${ import .meta.env.VITE_API_URL}/payment/success`, response);
+        const result = await axiosInstance.post(`/payment/success`, {...response,razorpay_order_id:order_id});
 
-        alert(result.data.msg);
+        window.location.reload()
        
       },
       prefill: {

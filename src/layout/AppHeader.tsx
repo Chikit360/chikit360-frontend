@@ -9,11 +9,13 @@ import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
 import { useSelector } from "react-redux";
 import { RootState } from "../features/store";
+import { getUserRole } from "../features/auth/user.slice";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
   const { data } = useSelector(((state: RootState) => state.subscription))
+  const userRole=useSelector(getUserRole)
 
 
   const navigate = useNavigate();
@@ -144,7 +146,7 @@ const AppHeader: React.FC = () => {
         >
           <div className="flex items-center gap-2 2xsm:gap-3">
             {
-              data?.isActive ? (
+              userRole!=="superAdmin" && (data?.isActive ? (
                 <div
                   title={`Ends in ${formatDistanceToNowStrict(new Date(data.endDate), { addSuffix: false })}`}
                   className="flex items-center gap-2 cursor-pointer px-3 py-1 text-sm font-medium text-green-600 bg-green-100 rounded-full dark:bg-green-900/20 dark:text-green-400"
@@ -152,7 +154,7 @@ const AppHeader: React.FC = () => {
                   {data.plan.charAt(0).toUpperCase() + data.plan.slice(1)} Plan
                 </div>
               ): <div className="bg-red-500/50 text-xs py-1 px-3 text-white rounded-sm border border-red-500" >Your Subscription is expired</div>
-            }
+            )}
             <ThemeToggleButton />
             <NotificationDropdown />
           </div>

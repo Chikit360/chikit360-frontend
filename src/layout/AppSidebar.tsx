@@ -180,7 +180,7 @@ const AppSidebar: React.FC = () => {
           {nav.subItems ? (
             <button
 
-              onClick={() => subscriptionData?.isActive ? handleSubmenuToggle(index, menuType) : setOpenBox(true)}
+              onClick={() =>userRole==="superAdmin"?handleSubmenuToggle(index, menuType):subscriptionData?.isActive ? handleSubmenuToggle(index, menuType) : setOpenBox(true)}
               className={`menu-item group ${openSubmenu?.type === menuType && openSubmenu?.index === index
                 ? "menu-item-active"
                 : "menu-item-inactive"
@@ -195,7 +195,7 @@ const AppSidebar: React.FC = () => {
                   : "menu-item-icon-inactive"
                   }`}
               >
-                {subscriptionData?.isActive ? nav.icon : <LockIcon />}
+                {userRole==="superAdmin"? nav.icon: subscriptionData?.isActive ? nav.icon : <LockIcon />}
               </span>
               {(isExpanded || isHovered || isMobileOpen) && (
                 <span className="menu-item-text">{nav.name}</span>
@@ -393,18 +393,17 @@ const AppSidebar: React.FC = () => {
           <h2 className="text-2xl font-semibold text-center text-gray-800">Choose Your Plan</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
             {[
-              { type: "basic", name: "Basic", desc: "Best for startups", color: "bg-blue-100", text: "text-blue-600" },
-              { type: "standard", name: "Standard", desc: "Ideal for growing teams", color: "bg-green-100", text: "text-green-600" },
-              { type: "premium", name: "Premium", desc: "Perfect for enterprises", color: "bg-yellow-100", text: "text-yellow-600" },
+              { _id: "68007c4e96c753f7679784c0", name: "Basic", desc: "Best for startups", color: "bg-blue-100", text: "text-blue-600" },
+    
             ].map((plan) => (
-              <div key={plan.type} className={`rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 ${plan.color}`}>
+              <div key={plan._id} className={`rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 ${plan.color}`}>
                 <h3 className={`text-xl font-bold mb-1 ${plan.text}`}>{plan.name}</h3>
                 <p className="text-sm text-gray-600 mb-4">{plan.desc}</p>
                 <button
                   className={`px-4 py-2 rounded-md bg-white border ${plan.text} border-current hover:bg-opacity-80 transition`}
                   onClick={() => {
                     setOpenBox(false);
-                    window.location.href = `/subscription?type=${plan.type}`;
+                    window.location.href = `/subscription/${plan._id}`;
                   }}
                 >
                   Explore
