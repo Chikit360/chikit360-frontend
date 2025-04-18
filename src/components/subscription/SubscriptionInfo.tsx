@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format, formatDistanceToNowStrict, isPast, isWithinInterval } from 'date-fns';
 import { SubscriptionI } from '../../helpers/subscriptionInterface';
+import { Modal } from '../ui/modal';
+import Button from '../ui/button/Button';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../features/store';
 
 const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
   if (!subscription) return null;
@@ -15,11 +19,11 @@ const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
     paymentMethod,
     transactionId,
   } = subscription;
-
+  const [openBox, setOpenBox] = useState(false)
   const formattedStart = format(new Date(startDate), 'PPP');
   const formattedEnd = format(new Date(endDate), 'PPP');
   const timeLeft = formatDistanceToNowStrict(new Date(endDate), { addSuffix: true });
-
+  const {plans}=useSelector((state:RootState) => state.offerPlan)
   const isExpiringSoon = isWithinInterval(new Date(endDate), {
     start: new Date(),
     end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // within 7 days
@@ -72,7 +76,32 @@ const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
             {isCancelled ? 'Cancelled' : isActive ? 'Active' : 'Inactive'}
           </span>
         </p>
+        <Button className='w-1/3' onClick={() => setOpenBox(true)} >Upgrade Plan</Button>
       </div>
+
+      <Modal className="w-xl" isOpen={openBox} onClose={() => setOpenBox(false)}>
+              <div className="p-6 space-y-6">
+                <h2 className="text-2xl font-semibold text-center text-gray-800">Choose Your Plan</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                  {plans?.map((plan) => (
+                    <div key={plan._id} className={`rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 ${plan.color}`}>
+                      <h3 className={`text-xl font-bold mb-1 ${plan.name}`}>{plan.name}</h3>
+                      <p className="text-sm text-gray-600 mb-4">{plan.description}</p>
+                      <button
+                        className={`px-4 py-2 rounded-md bg-white border ${plan._id} border-current hover:bg-opacity-80 transition`}
+                        onClick={() => {
+                          setOpenBox(false);
+                          window.location.href = `/subscription/${plan._id}`;
+                        }}
+                      >
+                        Explore
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+      
+            </Modal>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import hospitalReducer from './hospitals/hospital.slice';
 import notificationSettingReducer from './notificationSetting/notificationSettingSlice';
 import userReducer from './user/userSlice';
 import subscriptionReducer from './subscription/subscriptionSlice';
+import offerPlanReducer from './offerPlan/offerPlanSlice';
 
 const store = configureStore({
   reducer: {
@@ -31,6 +32,7 @@ const store = configureStore({
     hospitals: hospitalReducer,
     notificationSetting:notificationSettingReducer,
     subscription:subscriptionReducer,
+    offerPlan:offerPlanReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
