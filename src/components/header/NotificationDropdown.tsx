@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Link } from "react-router";
+import { AppDispatch } from "../../features/store";
+import { useDispatch } from "react-redux";
 
 export default function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifying, setNotifying] = useState(true);
+  const [_, setNotifying] = useState(true);
+ 
+  const dispatch=useDispatch<AppDispatch>();
 
   function toggleDropdown() {
     setIsOpen(!isOpen);

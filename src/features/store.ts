@@ -9,6 +9,8 @@ import customerReducer from './customer/customerSlice';
 import adminReducer from './admin/adminSlice';
 import dropdownReducer from './dropDown/dropDownSlice';
 
+import fileUploadReducer from './file-upload/fileUploadSlice';
+
 const store = configureStore({
   reducer: {
     admin: adminReducer,
@@ -18,7 +20,8 @@ const store = configureStore({
     activeMedicines:activeMedicineReducer,
     sales: saleReducer,
     customers:customerReducer,
-    dropDown:dropdownReducer
+    dropDown:dropdownReducer,
+    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
