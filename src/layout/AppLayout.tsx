@@ -45,14 +45,15 @@ const LayoutContent: React.FC = () => {
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const userRole = useSelector(getUserRole);
-  const {data:subscriptionData}=useSelector(((state:RootState) => state.subscription))
+  const {user} = useSelector((state:RootState) => state.auth);
+  const {data:subscriptionData}=useSelector((state:RootState) => state.subscription)
  
 
   useEffect(() => {
     if(userRole==="superAdmin"){
       dispatch(getAllHospitals());
     }else{
-      dispatch(fetchCurrSubscription())
+      dispatch(fetchCurrSubscription(user?.hospital!))
 
     }
     

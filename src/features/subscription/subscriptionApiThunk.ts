@@ -6,9 +6,9 @@ import { axiosInstance } from "../../utils/axiosInstance";
 // Get current subscription for a hospital
 export const fetchCurrSubscription = createAsyncThunk(
   "subscription/fetchCurrSubscription",
-  async (_, { rejectWithValue }) => {
+  async (hospitalId:string, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get(`/subscription/curr`);
+      const { data } = await axiosInstance.get(`/subscription/curr?hospitalId=${hospitalId}`);
       return data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);

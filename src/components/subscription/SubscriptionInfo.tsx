@@ -5,9 +5,10 @@ import { Modal } from '../ui/modal';
 import Button from '../ui/button/Button';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../features/store';
+import { getUserRole } from '../../features/auth/user.slice';
 
 const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
-  if (!subscription) return null;
+  if (!subscription) return <>There is not any subscription for this hospital</>;
 
   const {
     plan,
@@ -28,6 +29,7 @@ const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
     start: new Date(),
     end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // within 7 days
   });
+  const userRole=useSelector(getUserRole);
 
   return (
     <div className="p-6 bg-white rounded-xl  space-y-4 w-full  mx-auto mt-6">
@@ -76,7 +78,10 @@ const SubscriptionInfo = ({ subscription }:{subscription:SubscriptionI}) => {
             {isCancelled ? 'Cancelled' : isActive ? 'Active' : 'Inactive'}
           </span>
         </p>
-        <Button className='w-1/3' onClick={() => setOpenBox(true)} >Upgrade Plan</Button>
+        {
+          userRole !== "superAdmin" ?
+          <Button className='w-1/3' onClick={() => setOpenBox(true)} >Upgrade Plan</Button>:null
+        }
       </div>
 
       <Modal className="w-xl" isOpen={openBox} onClose={() => setOpenBox(false)}>

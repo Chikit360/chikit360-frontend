@@ -4,6 +4,8 @@ import { useParams } from 'react-router';
 import { AppDispatch, RootState } from '../../../features/store';
 import { getHospitalById } from '../../../features/hospitals/hospitalApi';
 import { fetchDashboardAnalytics } from '../../../features/admin/adminApi';
+import { fetchCurrSubscription } from '../../../features/subscription/subscriptionApiThunk';
+import SubscriptionInfo from '../../../components/subscription/SubscriptionInfo';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200">
@@ -17,10 +19,12 @@ const PharmacyDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { selectedHospital, loading } = useSelector((state: RootState) => state.hospitals);
   const { dashboardData } = useSelector((state: RootState) => state.admin);
+  const {data:subscriptionData}=useSelector(((state:RootState) => state.subscription))
 
   useEffect(() => {
     dispatch(getHospitalById(id || ''));
     dispatch(fetchDashboardAnalytics({selected:"daily",hospitalId:id!}));
+     dispatch(fetchCurrSubscription(id!))
   }, [dispatch, id]);
 
   if (loading || !selectedHospital) {
@@ -36,7 +40,7 @@ const PharmacyDetails = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-2">{hospital.name}</h2>
+        <h2 className="text-4xl font-bold text-gray-900 mb-2 capitalize">{hospital.name}</h2>
         <p className="text-sm text-gray-500">Comprehensive Pharmacy Overview</p>
       </div>
 
@@ -96,6 +100,7 @@ const PharmacyDetails = () => {
         </Section> */}
       </div>
       <DashboardAnalytics data={dashboardData!} />
+      <SubscriptionInfo subscription={subscriptionData!} />
     </div>
   );
 };
@@ -115,15 +120,15 @@ interface Props {
 
 const DashboardAnalytics: React.FC<Props> = ({ data }) => {
   const stats = [
-    { title: "Total Medicines", value: data.totalMedicines },
-    { title: "Total Inventory", value: data.totalInventory },
-    { title: "Total Customers", value: data.totalCustomers },
-    { title: "Today's Sales", value: data.totalTodaySales },
-    { title: "Today's Profit", value: data.totalProfitToday },
+    { title: "Total Medicines", value: data?.totalMedicines },
+    { title: "Total Inventory", value: data?.totalInventory },
+    { title: "Total Customers", value: data?.totalCustomers },
+    { title: "Today's Sales", value: data?.totalTodaySales },
+    { title: "Today's Profit", value: data?.totalProfitToday },
   ];
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 m-5">
       <h2 className="text-3xl font-bold text-gray-800">Analytics Overview</h2>
 
       {/* Stats Cards */}
