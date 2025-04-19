@@ -10,7 +10,7 @@ import { fetchDashboardAnalytics } from "../../features/admin/adminApi";
 import ChartTab, { ChartRange } from "../../components/common/ChartTab";
 
 export default function Home() {
-  const { error, success, message } = useSelector((state: RootState) => state.auth);
+  const { user,error, success, message } = useSelector((state: RootState) => state.auth);
   const { dashboardData,loading } = useSelector((state: RootState) => state.admin);
   const [selected, setSelected] = useState<ChartRange>("daily");
   
@@ -30,7 +30,7 @@ export default function Home() {
     }, [error, success, message]);
 
     useEffect(() => {
-      dispatch(fetchDashboardAnalytics(selected));
+      dispatch(fetchDashboardAnalytics({selected,hospitalId:user?.hospital!}));
     
       
     }, [dispatch,selected])

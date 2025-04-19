@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { AppDispatch, RootState } from "../../../features/store";
 import ChartTab, { ChartRange } from "../../../components/common/ChartTab";
 import PageMeta from "../../../components/common/PageMeta";
-import EcommerceMetrics from "../../../components/ecommerce/EcommerceMetrics";
+import EcommerceMetrics from "./EcommerceMetrics";
 import MonthlyTarget from "../../../components/ecommerce/MonthlyTarget";
 import StatisticsChart from "../../../components/ecommerce/StatisticsChart";
 import { fetchSuperAdminDashboardAnalytics } from "../../../features/superAdmin/superAdminApi";

@@ -17,7 +17,7 @@ export interface ChartSeries {
   
   export interface DashboardAnalyticsData {
     totalMedicines: number;
-    totalInventory: number;
+    totalHospital: number;
     totalCustomers: number;
     totalTodaySales: number;
     totalProfitToday: number;

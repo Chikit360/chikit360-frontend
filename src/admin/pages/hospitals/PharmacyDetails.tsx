@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { AppDispatch, RootState } from '../../../features/store';
 import { getHospitalById } from '../../../features/hospitals/hospitalApi';
+import { fetchDashboardAnalytics } from '../../../features/admin/adminApi';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200">
@@ -15,9 +16,11 @@ const PharmacyDetails = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { selectedHospital, loading } = useSelector((state: RootState) => state.hospitals);
+  const { dashboardData } = useSelector((state: RootState) => state.admin);
 
   useEffect(() => {
     dispatch(getHospitalById(id || ''));
+    dispatch(fetchDashboardAnalytics({selected:"daily",hospitalId:id!}));
   }, [dispatch, id]);
 
   if (loading || !selectedHospital) {
@@ -92,8 +95,52 @@ const PharmacyDetails = () => {
           <p>{hospital.governmentSchemes.length > 0 ? hospital.governmentSchemes.join(', ') : 'N/A'}</p>
         </Section> */}
       </div>
+      <DashboardAnalytics data={dashboardData!} />
     </div>
   );
 };
+
+
+interface DashboardData {
+  totalMedicines: number;
+  totalInventory: number;
+  totalCustomers: number;
+  totalTodaySales: number;
+  totalProfitToday: number;
+}
+
+interface Props {
+  data: DashboardData;
+}
+
+const DashboardAnalytics: React.FC<Props> = ({ data }) => {
+  const stats = [
+    { title: "Total Medicines", value: data.totalMedicines },
+    { title: "Total Inventory", value: data.totalInventory },
+    { title: "Total Customers", value: data.totalCustomers },
+    { title: "Today's Sales", value: data.totalTodaySales },
+    { title: "Today's Profit", value: data.totalProfitToday },
+  ];
+
+  return (
+    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
+      <h2 className="text-3xl font-bold text-gray-800">Analytics Overview</h2>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        {stats.map((item, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-2xl shadow p-6 text-center border border-gray-100 hover:shadow-md transition"
+          >
+            <p className="text-sm text-gray-500">{item.title}</p>
+            <p className="text-2xl font-semibold text-indigo-600 mt-1">{item.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 
 export default PharmacyDetails;
