@@ -5,7 +5,7 @@ import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../features/store";
+import { AppDispatch, RootState } from "../features/store";
 import { getAllMedicines } from "../features/medicine/medicineApi";
 import Breadcrumb from "../components/breadcrumb/BreadCrumb";
 import { getAllHospitals } from "../features/hospitals/hospitalApi";
@@ -13,6 +13,8 @@ import { fetchDropdownOptions } from "../features/dropDown/dropDownApi";
 import { fetchNotificationCount } from "../features/notifications/notificationApi";
 import { getUserRole } from "../features/auth/user.slice";
 import { fetchNotificationSettings } from "../features/notificationSetting/notificationSettingApi";
+import { fetchCurrSubscription } from "../features/subscription/subscriptionApiThunk";
+import { fetchAllOfferPlans } from "../features/offerPlan/offerPlanApiThunk";
 
 const LayoutContent: React.FC = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
@@ -43,18 +45,35 @@ const LayoutContent: React.FC = () => {
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const userRole = useSelector(getUserRole);
+  const {data:subscriptionData}=useSelector(((state:RootState) => state.subscription))
+ 
+
   useEffect(() => {
     if(userRole==="superAdmin"){
-      dispatch(getAllHospitals());   // Fetch Gender dropdown
+      dispatch(getAllHospitals());
     }else{
+      dispatch(fetchCurrSubscription())
+
+    }
+    
+  }, [dispatch])
+
+  useEffect(() => {
+    
+     
+    if(subscriptionData?.isActive){
       dispatch(getAllMedicines());
       dispatch(fetchDropdownOptions("strength"));  // Fetch Category dropdown
       dispatch(fetchDropdownOptions("form"));   // Fetch Gender dropdown
       dispatch(fetchNotificationCount());   // Fetch Gender dropdown
       dispatch(fetchNotificationSettings())
+      dispatch(fetchAllOfferPlans())
+
     }
-    
-  }, [dispatch])
+  
+  
+}, [dispatch,subscriptionData])
+  
   
   return (
     <SidebarProvider>

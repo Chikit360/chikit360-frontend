@@ -8,11 +8,13 @@ import { useParams } from 'react-router';
 import { AppDispatch, RootState } from "../features/store";
 import { useEffect } from "react";
 import { getHospitalById } from "../features/hospitals/hospitalApi";
+import SubscriptionInfo from "../components/subscription/SubscriptionInfo";
 
 
 
 export default function UserProfiles() {
   const { user, } = useSelector((state: RootState) => state.auth);
+  const {data:subscriptionData}=useSelector(((state:RootState) => state.subscription))
   return (
     <>
       <PageMeta
@@ -30,6 +32,7 @@ export default function UserProfiles() {
           <PharmacyDetails user={user} />
 
          <NotificationSettings/>
+         <SubscriptionInfo subscription={subscriptionData!} />
         </div>
       </div>
     </>

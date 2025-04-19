@@ -13,6 +13,7 @@ axiosInstance.interceptors.request.use(
     const token = Cookies.get('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      // config.headers["subscription-token"] =import.meta.env.VITE_SUBSCRIPTION_TOKEN;
     }
     return config;
   },

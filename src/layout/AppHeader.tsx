@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
+import { formatDistanceToNowStrict } from 'date-fns';
 
 import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
@@ -8,12 +9,14 @@ import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
 import { useSelector } from "react-redux";
 import { RootState } from "../features/store";
+import { getUserRole } from "../features/auth/user.slice";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
+  const { data } = useSelector(((state: RootState) => state.subscription))
+  const userRole=useSelector(getUserRole)
 
-  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,7 +59,7 @@ const AppHeader: React.FC = () => {
       setQuery(decodeURIComponent(queryFromUrl));
     }
   }, [searchParams]);
-  
+
 
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-80 dark:border-gray-800 dark:bg-gray-900 lg:border-b">
@@ -87,7 +90,7 @@ const AppHeader: React.FC = () => {
           </button>
 
           <Link to="/" className="lg:hidden">
-          
+
             <img className="w-[52%] mx-auto dark:hidden" src="/images/logo/ThunderGits_Logos/1.png" alt="Logo" />
             <img className="w-[52%] mx-auto hidden dark:block" src="/images/logo/ThunderGits_Logos/2.png" alt="Logo" />
           </Link>
@@ -138,11 +141,20 @@ const AppHeader: React.FC = () => {
         </div>
 
         <div
-          className={`${
-            isApplicationMenuOpen ? "flex" : "hidden"
-          } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
+          className={`${isApplicationMenuOpen ? "flex" : "hidden"
+            } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
         >
           <div className="flex items-center gap-2 2xsm:gap-3">
+            {
+              userRole!=="superAdmin" && (data?.isActive ? (
+                <div
+                  title={`Ends in ${formatDistanceToNowStrict(new Date(data.endDate), { addSuffix: false })}`}
+                  className="flex items-center gap-2 cursor-pointer px-3 py-1 text-sm font-medium text-green-600 bg-green-100 rounded-full dark:bg-green-900/20 dark:text-green-400"
+                >
+                  {data.plan.charAt(0).toUpperCase() + data.plan.slice(1)} Plan
+                </div>
+              ): <div className="bg-red-500/50 text-xs py-1 px-3 text-white rounded-sm border border-red-500" >Your Subscription is expired</div>
+            )}
             <ThemeToggleButton />
             <NotificationDropdown />
           </div>

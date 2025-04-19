@@ -22,6 +22,7 @@ import PharmacyDetails from "../admin/pages/hospitals/PharmacyDetails";
 import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import UserUpdate from "../pages/user/UserUpdate";
+import SubscriptionPlan from "../pages/subscription/SubscriptionPlan";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -41,6 +42,7 @@ export const authRoutes = [
     { path: "/customer/:id/purchase-history",params:["id"], element: <CustomerHistory /> },
     { path: "/customer-list",params:[], element: <CustomerList /> },
     { path: "/profile",params:[], element: <UserProfiles /> },
+    { path: "/subscription/:offerId",params:["offerId"], element: <SubscriptionPlan /> },
 
 
 
