@@ -15,6 +15,7 @@ import notificationSettingReducer from './notificationSetting/notificationSettin
 import userReducer from './user/userSlice';
 import subscriptionReducer from './subscription/subscriptionSlice';
 import offerPlanReducer from './offerPlan/offerPlanSlice';
+import inquiryReducer from './inquiry/inquirySlice';
 
 const store = configureStore({
   reducer: {
@@ -33,6 +34,7 @@ const store = configureStore({
     notificationSetting:notificationSettingReducer,
     subscription:subscriptionReducer,
     offerPlan:offerPlanReducer,
+    inquiry:inquiryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

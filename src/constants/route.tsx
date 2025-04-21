@@ -23,6 +23,7 @@ import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import UserUpdate from "../pages/user/UserUpdate";
 import SubscriptionPlan from "../pages/subscription/SubscriptionPlan";
+import InquiryList from "../pages/inquiry/InquiryList";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -61,4 +62,6 @@ export const authRoutes = [
     { path: "/admin/users/items/add",params:[], element: <UserCreate /> },
     { path: "/admin/users/items/:id/edit",params:[], element: <UserUpdate /> },
     // { path: "/admin/users/items/:id",params:[], element: <PharmacyDetails /> }
+
+    { path: "/admin/inquiry/items",params:[], element: <InquiryList /> },
   ];

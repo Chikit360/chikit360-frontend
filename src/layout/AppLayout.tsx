@@ -54,7 +54,7 @@ const AppLayout: React.FC = () => {
       dispatch(getAllHospitals());
     }else{
       dispatch(fetchCurrSubscription(user?.hospital!))
-
+      dispatch(fetchAllOfferPlans())
     }
     
   }, [dispatch])
@@ -68,7 +68,7 @@ const AppLayout: React.FC = () => {
       dispatch(fetchDropdownOptions("form"));   // Fetch Gender dropdown
       dispatch(fetchNotificationCount());   // Fetch Gender dropdown
       dispatch(fetchNotificationSettings())
-      dispatch(fetchAllOfferPlans())
+      
 
     }
   

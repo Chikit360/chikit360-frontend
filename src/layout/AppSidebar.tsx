@@ -10,6 +10,8 @@ import {
   GridIcon,
   HorizontaLDots,
 
+  ListIcon,
+
   LockIcon,
 
   MedicineIcon,
@@ -58,6 +60,11 @@ const superAdminNavItems: NavItem[] = [
     name: "Pharmacy",
     subItems: [{ name: "Items", path: "/admin/pharmacy/items", pro: false }],
   },
+  {
+    icon: <ListIcon />,
+    name: "Inquiry",
+    subItems: [{ name: "Items", path: "/admin/inquiry/items", pro: false }],
+  },
 
 
 
@@ -101,6 +108,7 @@ const AppSidebar: React.FC = () => {
   const userRole = useSelector(getUserRole)
   const [openBox, setOpenBox] = useState(false)
   const { data: subscriptionData } = useSelector(((state: RootState) => state.subscription))
+  const {plans  } = useSelector(((state: RootState) => state.offerPlan))
 
   const [openSubmenu, setOpenSubmenu] = useState<{
     type: "main" | "others";
@@ -246,7 +254,7 @@ const AppSidebar: React.FC = () => {
             >
               <ul className="mt-2 space-y-1 ml-9">
                 {nav.subItems.filter((subItem) => !subItem.role || subItem.role.includes(userRole!)).map((subItem) => (
-                  <li key={subItem.name}>
+                  <button className="block w-full disabled:cursor-not-allowed" disabled={userRole==="superAdmin"? false: subscriptionData?.isActive ? false : true}  key={subItem.name}>
                     <Link
                       to={subItem.path}
                       className={`menu-dropdown-item ${isActive(subItem.path)
@@ -278,7 +286,7 @@ const AppSidebar: React.FC = () => {
                         )}
                       </span>
                     </Link>
-                  </li>
+                  </button>
                 ))}
               </ul>
             </div>
@@ -388,32 +396,64 @@ const AppSidebar: React.FC = () => {
       </div>
       
     </aside>
-    <Modal className="w-xl" isOpen={openBox} onClose={() => setOpenBox(false)}>
-        <div className="p-6 space-y-6">
-          <h2 className="text-2xl font-semibold text-center text-gray-800">Choose Your Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-            {[
-              { _id: "68007c4e96c753f7679784c0", name: "Basic", desc: "Best for startups", color: "bg-blue-100", text: "text-blue-600" },
-    
-            ].map((plan) => (
-              <div key={plan._id} className={`rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 ${plan.color}`}>
-                <h3 className={`text-xl font-bold mb-1 ${plan.text}`}>{plan.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{plan.desc}</p>
-                <button
-                  className={`px-4 py-2 rounded-md bg-white border ${plan.text} border-current hover:bg-opacity-80 transition`}
-                  onClick={() => {
-                    setOpenBox(false);
-                    window.location.href = `/subscription/${plan._id}`;
-                  }}
-                >
-                  Explore
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+    <Modal className="w-full max-w-6xl" isOpen={openBox} onClose={() => setOpenBox(false)}>
+  <div className="p-6 h-[90vh] flex flex-col">
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-4 shrink-0">Choose Your Plan</h2>
 
-      </Modal>
+    <div className="overflow-y-auto flex-grow">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {plans?.map((plan) => (
+          <div
+            key={plan._id}
+            className={`rounded-2xl p-6 shadow-xl transition-transform duration-300 transform hover:-translate-y-1 bg-white border-t-8 ${plan.color}`}
+          >
+            <h3 className="text-2xl font-bold text-gray-800 mb-2 capitalize">{plan.name}</h3>
+            <p className="text-sm text-gray-500 mb-4 min-h-[50px]">{plan.description}</p>
+
+            <div className="text-lg font-semibold text-gray-700 mb-2">
+              ₹{plan.price} / {plan.validityInDays >= 30 ? `${plan.validityInDays / 30} month${plan.validityInDays > 30 ? "s" : ""}` : `${plan.validityInDays} days`}
+            </div>
+
+            <div className="mb-4">
+              <h4 className="text-sm font-medium text-gray-600">Limits:</h4>
+              <ul className="text-sm text-gray-700 list-disc list-inside space-y-1">
+                <li>Users: {plan.limits?.userLimit}</li>
+                <li>Departments: {plan.limits?.departmentLimit}</li>
+                <li>Medicines: {plan.limits?.medicineLimit}</li>
+                <li>Sales/day: {plan.limits?.saleLimitPerDay}</li>
+              </ul>
+            </div>
+
+            {plan.features?.length > 0 && (
+              <div className="mb-4">
+                <h4 className="text-sm font-medium text-gray-600">Features:</h4>
+                <ul className="text-sm text-gray-700 list-disc list-inside space-y-1">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className={feature.isEnabled ? "text-green-600" : "text-red-500"}>
+                      {feature.label} – {feature.isEnabled ? "Enabled" : "Disabled"}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button
+              className={`w-full mt-4 py-2 rounded-md text-white font-medium bg-gray-800 hover:bg-gray-900 transition`}
+              onClick={() => {
+                setOpenBox(false);
+                window.location.href = `/subscription/${plan._id}`;
+              }}
+            >
+              Explore Plan
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Modal>
+
+
     </>
   );
 };
