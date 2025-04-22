@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import { getUserRole } from "../features/auth/user.slice";
 import { RootState } from "../features/store";
 import { Modal } from "../components/ui/modal";
+import { ExtraAddOn } from "../helpers/offerPlanInterface";
 
 
 type NavItem = {
@@ -109,6 +110,7 @@ const AppSidebar: React.FC = () => {
   const [openBox, setOpenBox] = useState(false)
   const { data: subscriptionData } = useSelector(((state: RootState) => state.subscription))
   const {plans  } = useSelector(((state: RootState) => state.offerPlan))
+ 
 
   const [openSubmenu, setOpenSubmenu] = useState<{
     type: "main" | "others";
@@ -180,6 +182,9 @@ const AppSidebar: React.FC = () => {
   //     console.log("Open subscription modal or redirect to subscription page");
   //   }
   // };
+ 
+  
+  
 
   const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
     <ul className="flex flex-col gap-4">
@@ -413,7 +418,9 @@ const AppSidebar: React.FC = () => {
             <div className="text-lg font-semibold text-gray-700 mb-2">
               ₹{plan.price} / {plan.validityInDays >= 30 ? `${plan.validityInDays / 30} month${plan.validityInDays > 30 ? "s" : ""}` : `${plan.validityInDays} days`}
             </div>
-
+            <div>
+            Initial set-up cost: ₹{plan.initialSetUpPrice}
+            </div>
             <div className="mb-4">
               <h4 className="text-sm font-medium text-gray-600">Limits:</h4>
               <ul className="text-sm text-gray-700 list-disc list-inside space-y-1">
@@ -436,6 +443,9 @@ const AppSidebar: React.FC = () => {
                 </ul>
               </div>
             )}
+          
+       
+
 
             <button
               className={`w-full mt-4 py-2 rounded-md text-white font-medium bg-gray-800 hover:bg-gray-900 transition`}

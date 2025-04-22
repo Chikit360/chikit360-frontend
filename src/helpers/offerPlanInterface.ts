@@ -11,6 +11,11 @@ export interface Feature {
     medicineLimit: number;
     saleLimitPerDay: number;
   }
+
+  export interface ExtraAddOn{
+    title:string,
+    price:number,
+  }
   
   export interface OfferPlanI {
     _id: string;
@@ -21,6 +26,8 @@ export interface Feature {
     description?: string;
     features: Feature[];
     limits: Limits;
+    initialSetUpPrice:number,
+    extraAddOn:ExtraAddOn[],
     isVisible: boolean;
     createdAt: string;
     updatedAt: string;
