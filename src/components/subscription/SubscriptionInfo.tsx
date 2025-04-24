@@ -107,8 +107,9 @@ const SubscriptionInfo = ({ subscription }: { subscription: SubscriptionI }) => 
               {plans?.map((plan) => (
                 <div
                   key={plan._id}
-                  className={`rounded-2xl p-6 shadow-xl transition-transform duration-300 transform hover:-translate-y-1 bg-white border-t-8 ${plan.color}`}
+                  className={`w-full h-full flex flex-col justify-between rounded-2xl p-6 shadow-xl transition-transform duration-300 transform hover:-translate-y-1 bg-white border-t-8 ${plan.color}`}
                 >
+                  <div className=''>
                   <h3 className="text-2xl font-bold text-gray-800 mb-2 capitalize">{plan.name}</h3>
                   <p className="text-sm text-gray-500 mb-4 min-h-[50px]">{plan.description}</p>
 
@@ -140,6 +141,7 @@ const SubscriptionInfo = ({ subscription }: { subscription: SubscriptionI }) => 
                       </ul>
                     </div>
                   )}
+                  </div>
 
 
 

@@ -66,6 +66,11 @@ const superAdminNavItems: NavItem[] = [
     name: "Inquiry",
     subItems: [{ name: "Items", path: "/admin/inquiry/items", pro: false }],
   },
+  {
+    icon: <ListIcon />,
+    name: "Offers",
+    subItems: [{ name: "Items", path: "/admin/offers-plan/items", pro: false }],
+  },
 
 
 
@@ -410,8 +415,9 @@ const AppSidebar: React.FC = () => {
         {plans?.map((plan) => (
           <div
             key={plan._id}
-            className={`rounded-2xl p-6 shadow-xl transition-transform duration-300 transform hover:-translate-y-1 bg-white border-t-8 ${plan.color}`}
+            className={`flex flex-col justify-between h-full w-full rounded-2xl p-6 shadow-xl transition-transform duration-300 transform hover:-translate-y-1 bg-white border-t-8 ${plan.color}`}
           >
+            <div>
             <h3 className="text-2xl font-bold text-gray-800 mb-2 capitalize">{plan.name}</h3>
             <p className="text-sm text-gray-500 mb-4 min-h-[50px]">{plan.description}</p>
 
@@ -443,6 +449,7 @@ const AppSidebar: React.FC = () => {
                 </ul>
               </div>
             )}
+            </div>
           
        
 

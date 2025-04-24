@@ -37,9 +37,10 @@ export default function HospitalList() {
     };
   }, [error, message]);
 
-  if (loading) return <LoadingOverlay isLoading={loading} />;
+  console.log(hospitals)
+  if (loading && hospitals.length === 0) return <LoadingOverlay />;
   if (error) return <p>Error: {error}</p>;
-  if (hospitals?.length === 0) {  // Changed clinics to hospitals
+  if (hospitals.length === 0) {  // Changed clinics to hospitals
     return (
       <div className='flex justify-center items-center flex-col'>
         <div className="p-8 text-center text-gray-500 text-lg">No hospital available.</div>
@@ -73,13 +74,13 @@ export default function HospitalList() {
               <TableRow className='border-gray-200 dark:border-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800' key={hospital._id}>
                 {/* <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">{hospital._id}</TableCell> */}
                 <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">
-                  <p title={hospital.name} className='text-blue-500 whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'><Link to={`/admin/pharmacy/items/${hospital._id}`} > {hospital.name}</Link></p>
+                  <p title={hospital.name} className='text-blue-500 '><Link to={`/admin/pharmacy/items/${hospital._id}`} > {hospital.name}</Link></p>
                 </TableCell>
                 <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">
-                  <p title={hospital.address.state} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.address.state}</p>
+                  <p title={hospital.address.state} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.address.state===""? "NA":hospital.address.state}</p>
                 </TableCell>
                 <TableCell className="px-5 py-4 text-start text-gray-700 dark:text-gray-300">
-                  <p title={hospital.contact.whatsapp} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.contact.whatsapp}</p>
+                  <p title={hospital.contact.whatsapp} className='whitespace-nowrap max-w-[100px] text-ellipsis overflow-hidden'>{hospital.contact.whatsapp===""? "NA":hospital.contact.whatsapp}</p>
                 </TableCell>
                 <TableCell className=''>
                   <div className='w-full h-full flex gap-2 justify-around items-center'>

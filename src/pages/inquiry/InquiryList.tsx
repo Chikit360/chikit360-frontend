@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AppDispatch, RootState } from '../../features/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInquiries, updateInquiryStatusAPI } from '../../features/inquiry/inquiryApiThunk';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 const InquiryList: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +22,7 @@ const InquiryList: React.FC = () => {
         setExpandedId((prevId) => (prevId === id ? null : id));
     };
 
+    if(loading) return <LoadingOverlay/>
     return (
         <div className="p-6">
             <h1 className="text-2xl font-semibold mb-4">Inquiries</h1>

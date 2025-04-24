@@ -83,17 +83,29 @@ const hospitalSlice = createSlice({
         state.error = false;
       })
       .addCase(createHospital.fulfilled, (state, action) => {
-        state.hospitals.push(action.payload.data);
+        state.hospitals=[action.payload.data,...state.hospitals]
         state.recentCreatedHospitalId = action.payload.data._id;
         state.success = true;
         state.loading = false;
         state.message = action.payload.message;
+      })
+      .addCase(createHospital.rejected, (state, action) => {
+        
+        state.success = false;
+        state.loading = false;
+        state.message = String(action.payload) || "error in creating hospital";
+        state.error=true;
       })
       .addCase(deleteHospitalById.fulfilled, (state, action) => {
         state.hospitals = state.hospitals.filter((hospital) => hospital._id !== action.payload);
       })
       .addCase(getHospitalById.fulfilled, (state, action) => {
         state.selectedHospital = action.payload.data as IHospital;
+      })
+      .addCase(updateHospitalById.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = false;
       })
       .addCase(updateHospitalById.fulfilled, (state, action) => {
         const index = state.hospitals.findIndex((hospital) => hospital._id === action.payload.data._id);
@@ -103,7 +115,12 @@ const hospitalSlice = createSlice({
           state.success = true;
           state.loading = false;
         }
-      });
+      }).addCase(updateHospitalById.rejected, (state,action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = true;
+        state.message=String(action.payload)
+      })
   },
 });
 

@@ -24,6 +24,10 @@ import UserCreate from "../pages/user/UserCreate";
 import UserUpdate from "../pages/user/UserUpdate";
 import SubscriptionPlan from "../pages/subscription/SubscriptionPlan";
 import InquiryList from "../pages/inquiry/InquiryList";
+import OffersPlanList from "../pages/offersPlan/OffersPlanList";
+import OfferPlanDetail from "../pages/offersPlan/OfferPlanDetail";
+import UpdateOfferPlanDetail from "../pages/offersPlan/UpdateOfferPlanDetail";
+import CreateOfferPlan from "../pages/offersPlan/CreateOfferPlan";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -64,4 +68,9 @@ export const authRoutes = [
     // { path: "/admin/users/items/:id",params:[], element: <PharmacyDetails /> }
 
     { path: "/admin/inquiry/items",params:[], element: <InquiryList /> },
+
+    { path: "/admin/offers-plan/items",params:[], element: <OffersPlanList /> },
+    { path: "/admin/offers-plan/items/:offerId/detail",params:[], element: <OfferPlanDetail /> },
+    { path: "/admin/offers-plan/items/:offerId/edit",params:[], element: <UpdateOfferPlanDetail /> },
+    { path: "/admin/offers-plan/items/add",params:[], element: <CreateOfferPlan /> },
   ];

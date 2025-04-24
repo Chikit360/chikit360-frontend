@@ -1,5 +1,10 @@
-export interface Feature {
-    key: string;
+export interface SchemeI {
+    price: number;
+    validityInDays: number;
+    discount: number;
+  }
+export interface FeatureI {
+    key?: string;
     label: string;
     description?: string;
     isEnabled: boolean;
@@ -20,11 +25,10 @@ export interface Feature {
   export interface OfferPlanI {
     _id: string;
     color: string;
-    name: "free_trial" | "basic" | "standard" | "premium";
-    price: number;
-    validityInDays: number;
+    name: string;
+    scheme: SchemeI[];
     description?: string;
-    features: Feature[];
+    features: FeatureI[];
     limits: Limits;
     initialSetUpPrice:number,
     extraAddOn:ExtraAddOn[],

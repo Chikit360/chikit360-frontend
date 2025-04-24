@@ -6,6 +6,7 @@ import { getHospitalById } from '../../../features/hospitals/hospitalApi';
 import { fetchDashboardAnalytics } from '../../../features/admin/adminApi';
 import { fetchCurrSubscription } from '../../../features/subscription/subscriptionApiThunk';
 import SubscriptionInfo from '../../../components/subscription/SubscriptionInfo';
+import LoadingOverlay from '../../../components/loader/LoadingOverlay';
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200">
@@ -28,11 +29,7 @@ const PharmacyDetails = () => {
   }, [dispatch, id]);
 
   if (loading || !selectedHospital) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading hospital details...
-      </div>
-    );
+    return <LoadingOverlay/>;
   }
 
   const hospital = selectedHospital;

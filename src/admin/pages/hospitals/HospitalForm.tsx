@@ -29,10 +29,23 @@ const HospitalForm = () => {
   const dispatch = useDispatch<AppDispatch>();
  
 
-  // const { error, message, success, } = useSelector((state: RootState) => state.clinic);
+  const { error, message, success, } = useSelector((state: RootState) => state.hospitals);
   // const { departments, } = useSelector((state: RootState) => state.departments);
   // const { doctors, loading: doctorLoading,  } = useSelector((state: RootState) => state.doctors);
-
+  useEffect(() => {
+    
+    if (error) {
+      toast.error(message);
+      // Optionally, clear the error state here if needed
+    }
+  
+    if (success && message) {
+      toast.success(message);
+      console.log("success")
+      // Optionally, reset success state here if needed
+    }
+  }, [error, success, message]);
+  
   const [formData, setFormData] = useState({
     name: '',
     adminEmail:'',
@@ -227,7 +240,8 @@ const HospitalForm = () => {
     console.log("form data: ", formData)
     // @ts-ignore 
     const response = await dispatch(createHospital(formData));
-    if (response.payload?.status === 200) {
+    console.log(response)
+    if (response.payload?.status === 201) {
       
       setFormData({
         name: '',

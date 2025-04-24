@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { AppDispatch, RootState } from '../../../features/store';
 import { getHospitalById, updateHospitalById } from '../../../features/hospitals/hospitalApi';
 import Label from '../../../components/form/Label';
+import LoadingOverlay from '../../../components/loader/LoadingOverlay';
 
 
 const SERVICE_OFFERED = [
@@ -218,7 +219,7 @@ const UpdateHospital = () => {
      dispatch(updateHospitalById({ id: id || '', hospitalData: formData }));
 
   };
-
+ if(loading) return <LoadingOverlay/>
   return (
     <>
       <div className="p-8">

@@ -50,11 +50,12 @@ const AppLayout: React.FC = () => {
  
 
   useEffect(() => {
+    dispatch(fetchAllOfferPlans())
     if(userRole==="superAdmin"){
       dispatch(getAllHospitals());
     }else{
       dispatch(fetchCurrSubscription(user?.hospital!))
-      dispatch(fetchAllOfferPlans())
+     
     }
     
   }, [dispatch])

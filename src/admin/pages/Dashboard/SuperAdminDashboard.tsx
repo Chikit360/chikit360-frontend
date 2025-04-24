@@ -10,6 +10,8 @@ import EcommerceMetrics from "./EcommerceMetrics";
 import MonthlyTarget from "../../../components/ecommerce/MonthlyTarget";
 import StatisticsChart from "../../../components/ecommerce/StatisticsChart";
 import { fetchSuperAdminDashboardAnalytics } from "../../../features/superAdmin/superAdminApi";
+import LoadingOverlay from "../../../components/loader/LoadingOverlay";
+import { cleanMessege } from "../../../features/auth/user.slice";
 
 
 export default function SuperAdminDashboard() {
@@ -34,13 +36,13 @@ export default function SuperAdminDashboard() {
 
     useEffect(() => {
       dispatch(fetchSuperAdminDashboardAnalytics(selected));
-    
+      dispatch(cleanMessege())
       
     }, [dispatch,selected])
     
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <LoadingOverlay/>;
     }
   return (
     <>

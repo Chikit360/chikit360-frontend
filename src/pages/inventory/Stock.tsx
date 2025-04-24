@@ -52,7 +52,7 @@ const Stock: React.FC = () => {
 
 
 
-  if (loading) return <LoadingOverlay isLoading={loading} />;
+  if (loading) return <LoadingOverlay />;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
 

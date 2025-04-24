@@ -69,6 +69,11 @@ const authSlice = createSlice({
       Cookies.remove('token');
       localStorage.removeItem('user');
     },
+    cleanMessege: (state) => {
+      
+      state.message = null;
+      
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -100,12 +105,13 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = true;
+        state.success=false;
         state.message = (action.payload as { message?: string })?.message || 'Logout failed';
       });
   },
 });
 
 
-export const {  setUser,clean } = authSlice.actions;
+export const {  setUser,clean,cleanMessege } = authSlice.actions;
 export const getUserRole = (state: { auth: AuthState }) => state.auth.user?.role;
 export default authSlice.reducer;

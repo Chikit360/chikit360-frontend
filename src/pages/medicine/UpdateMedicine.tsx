@@ -80,7 +80,7 @@ const UpdateMedicineForm = () => {
       }, [error, success, message]);
 
 
-    if (loading) return <LoadingOverlay isLoading={loading} />;
+    if (loading) return <LoadingOverlay />;
     if (error) return <div className="text-center text-red-500">{error}</div>;
 
     return (
