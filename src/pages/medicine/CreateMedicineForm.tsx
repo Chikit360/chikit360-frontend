@@ -12,6 +12,7 @@ import Label from '../../components/form/Label';
 import { DropdownOption } from '../../helpers/interfaces';
 import { toast } from 'react-toastify';
 import { clearMedicineMessage, } from '../../features/medicine/medicine.slice';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 const UNIT_ENUM = ['pieces', 'boxes', 'bottles', 'packs', 'strips'];
 
@@ -88,6 +89,7 @@ const CreateMedicineForm = () => {
     }
   }, [error, success, message]);
 
+  if(loading) return <LoadingOverlay/>
 
   return (
     <>

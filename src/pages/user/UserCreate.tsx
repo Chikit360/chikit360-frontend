@@ -1,15 +1,18 @@
 // UserCreate.tsx (aka User.tsx)
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AppDispatch } from '../../features/store';
+import { AppDispatch, RootState } from '../../features/store';
 import { createUser } from '../../features/user/userApiThunk';
 import Select from 'react-select';
 import Label from '../../components/form/Label';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
+import { toast } from 'react-toastify';
 
 const UserCreate = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const {loading,error}=useSelector((state:RootState)=>state.users)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -28,12 +31,23 @@ const UserCreate = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(createUser(formData));
-    navigate(-1);
+   const response=await dispatch(createUser(formData));
+   if(response){
+     navigate(-1);
+
+   }
   };
 
+  useEffect(() => {
+    if(error){
+      toast.error(error?.toString())
+    }
+  }, [error])
+  
+
+  if(loading) return <LoadingOverlay/>
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl mt-10 shadow">
       <h2 className="text-2xl font-bold mb-4">Create User</h2>

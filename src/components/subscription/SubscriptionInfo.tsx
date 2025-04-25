@@ -114,7 +114,7 @@ const SubscriptionInfo = ({ subscription }: { subscription: SubscriptionI }) => 
                   <p className="text-sm text-gray-500 mb-4 min-h-[50px]">{plan.description}</p>
 
                   <div className="text-lg font-semibold text-gray-700 mb-2">
-                    ₹{plan.price} / {plan.validityInDays >= 30 ? `${plan.validityInDays / 30} month${plan.validityInDays > 30 ? "s" : ""}` : `${plan.validityInDays} days`}
+                    ₹{plan.scheme[0]?.price ?? 0} / {plan.scheme[0]?.validityInDays >= 30 ? `${plan.scheme[0]?.validityInDays / 30} month${plan.scheme[0]?.validityInDays > 30 ? "s" : ""}` : `${plan.scheme[0]?.validityInDays} days`}
                   </div>
                   <div>
                     Initial set-up cost: ₹{plan.initialSetUpPrice}

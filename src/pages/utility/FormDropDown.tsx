@@ -9,6 +9,7 @@ import { PencilIcon, TrashBinIcon } from "../../icons";
 import { useSearchParams } from "react-router";
 import { toast } from "react-toastify";
 import { clearDDMessage } from "../../features/dropDown/dropDownSlice";
+import LoadingOverlay from "../../components/loader/LoadingOverlay";
 
 const FormDropDown = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -79,7 +80,7 @@ const FormDropDown = () => {
     setDeleteItem(item); // Store the item to delete
     setConfrmBox(true); // Open confirmation popup
   };
-
+  if(loading) return <LoadingOverlay/>
   return (
     <div className="p-6">
       <div className="flex justify-between items-center">

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../features/store';
 import { fetchCustomerPurchaseHistory } from '../../features/customer/customerApi';
 import { useParams } from 'react-router';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 const CustomerHistory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -70,7 +71,7 @@ const CustomerHistory: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="text-center text-lg">Loading...</div>;
+    return <LoadingOverlay/>;
   }
 
   if (error) {

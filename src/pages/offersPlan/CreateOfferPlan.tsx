@@ -67,9 +67,7 @@ const CreateOfferPlan: React.FC = () => {
       },
     });
   };
-  const handleColorChange = (selected: any) => {
-    setFormData({ ...formData, color: selected?.value || '' });
-  };
+ 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,17 +146,26 @@ const CreateOfferPlan: React.FC = () => {
             <input type="text" className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white" onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
 
           </div>
-
+          <div>
+          <Label required={false}>Select Color</Label>
           <Select
             options={colorOptions}
             onChange={(selected) => setFormData({ ...formData, color: selected?.value! })}
             placeholder="Select Color"
             className="text-sm"
           />
-          <input type="number" placeholder="Initial Setup Price" className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white" onChange={(e) => setFormData({ ...formData, initialSetUpPrice: Number(e.target.value) })} />
+
+          </div>
+          <div>
+            <Label>Initial Setup Price</Label>
+          <input type="number" placeholder="" className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white" onChange={(e) => setFormData({ ...formData, initialSetUpPrice: Number(e.target.value) })} />
+          </div>
         </div>
 
-        <textarea placeholder="Description" className="h-[220px] rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white w-full" rows={3} onChange={(e) => setFormData({ ...formData, description: e.target.value })}></textarea>
+        <div>
+          <Label>Description</Label>
+        <textarea placeholder="" className="h-[220px] rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white w-full" rows={3} onChange={(e) => setFormData({ ...formData, description: e.target.value })}></textarea>
+        </div>
 
         <div className="mt-4">
           <div className="flex items-center justify-start gap-1.5 mb-2">
@@ -169,7 +176,8 @@ const CreateOfferPlan: React.FC = () => {
           </div>
           {formData.scheme.map((item, index) => (
             <div key={index} className="flex items-center gap-4 mb-2">
-
+              <div className='w-full'>
+                <Label>Plan per month</Label>
               <Select
                 options={schemeOptions}
                 onChange={(selected) => {
@@ -194,7 +202,10 @@ const CreateOfferPlan: React.FC = () => {
                 placeholder="Select Scheme"
                 className="text-sm w-full"
               />
-
+                
+              </div>
+                <div>
+                  <Label>Discount</Label>
               <input
                 type="number"
                 placeholder="Discount"
@@ -202,6 +213,8 @@ const CreateOfferPlan: React.FC = () => {
                 value={item.discount}
                 onChange={(e) => handleSchemeChange(index, 'discount', Number(e.target.value))}
               />
+                </div>
+
               <TrashBinIcon width={30} className='text-red-400' onClick={() => handleRemove('scheme', index)} />
             </div>
           ))}
@@ -215,13 +228,18 @@ const CreateOfferPlan: React.FC = () => {
           </div>
           {formData.extraAddOn.map((item, index) => (
             <div key={index} className="flex items-center gap-4 mb-2">
-              <input
+              <div className='w-full'>
+                <Label>Title</Label>
+                <input
                 type="text"
                 placeholder="Title"
                 className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 value={item.title}
                 onChange={(e) => handleExtraAddOnChange(index, 'title', e.target.value)}
               />
+              </div>
+              <div className='w-full'>
+                <Label>Cost</Label>
               <input
                 type="number"
                 placeholder="Price"
@@ -229,6 +247,7 @@ const CreateOfferPlan: React.FC = () => {
                 value={item.price}
                 onChange={(e) => handleExtraAddOnChange(index, 'price', e.target.value)}
               />
+              </div>
               <TrashBinIcon width={30} className='text-red-400' onClick={() => handleRemove('extraAddOn', index)} />
             </div>
           ))}

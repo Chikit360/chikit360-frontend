@@ -5,7 +5,7 @@ import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import { axiosInstance } from "../../utils/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../../features/store";
-import { CheckCircleIcon } from "../../icons";
+import { CheckCircleIcon, CloseLineIcon, LockIcon } from "../../icons";
 import { useState } from "react";
 import { ExtraAddOn } from "../../helpers/offerPlanInterface";
 import SchemeSlider from "../../components/scheme-slider/SchemeSlider";
@@ -49,7 +49,7 @@ const OfferPlanDetail = () => {
             <ul className="space-y-2">
               {plan.features.map((feature: any, index: number) => (
                 <li key={index} className="flex items-center text-gray-800 text-sm">
-                  <CheckCircleIcon className="w-5 h-5 text-green-600 mr-2" />
+                  {feature.isEnabled ? <CheckCircleIcon className="w-5 h-5 text-green-600 mr-2" /> : <LockIcon className="w-5 h-5 text-red-600 mr-2"/>}
                   {feature.label}
                 </li>
               ))}

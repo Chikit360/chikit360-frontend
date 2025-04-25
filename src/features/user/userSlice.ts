@@ -53,7 +53,7 @@ const userSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to create user';
+        state.error =  'Failed to create user, try another email';
       })
 
       // Get All Users

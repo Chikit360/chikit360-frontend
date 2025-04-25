@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '../../features/store'
 import { fetchAllCustomers } from '../../features/customer/customerApi'
 import { PencilIcon, TrashBinIcon } from '../../icons'
 import { useSearchParams } from 'react-router'
+import LoadingOverlay from '../../components/loader/LoadingOverlay'
 
 
 
@@ -28,7 +29,7 @@ const CustomerList = () => {
     }
   }, [searchParams, customers]);
 
-  if(loading) return <>Loading</>
+  if(loading) return <LoadingOverlay/>
   
   return (
     <div>

@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { AppDispatch, RootState } from '../../../features/store';
 import Label from '../../../components/form/Label';
 import { createHospital } from '../../../features/hospitals/hospitalApi';
+import LoadingOverlay from '../../../components/loader/LoadingOverlay';
 
 
 
@@ -29,7 +30,7 @@ const HospitalForm = () => {
   const dispatch = useDispatch<AppDispatch>();
  
 
-  const { error, message, success, } = useSelector((state: RootState) => state.hospitals);
+  const { loading,error, message, success, } = useSelector((state: RootState) => state.hospitals);
   // const { departments, } = useSelector((state: RootState) => state.departments);
   // const { doctors, loading: doctorLoading,  } = useSelector((state: RootState) => state.doctors);
   useEffect(() => {
@@ -341,6 +342,8 @@ const HospitalForm = () => {
       });
     }
   };
+
+  if(loading) return <LoadingOverlay/>
 
   return (
     <>
@@ -928,7 +931,7 @@ const HospitalForm = () => {
           {/* Submit Button */}
           <div className="mt-8 flex justify-center">
             <button type="submit" className="bg-blue-500 text-white rounded-md px-6 py-3">
-              Submit
+              {loading ? "Submitting...":"Submit"}
             </button>
           </div>
         </form>

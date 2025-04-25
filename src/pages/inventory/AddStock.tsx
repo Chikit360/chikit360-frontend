@@ -1,9 +1,10 @@
 import React, {  useState } from 'react';
-import { useDispatch,  } from 'react-redux';
-import { AppDispatch, } from '../../features/store';
+import { useDispatch, useSelector,  } from 'react-redux';
+import { AppDispatch, RootState, } from '../../features/store';
 import { addInventory,  } from '../../features/inventory/inventoryApi';
 import { InventoryData } from '../../helpers/interfaces';
 import { useNavigate, useParams } from 'react-router';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 
 
@@ -15,6 +16,7 @@ const AddStock: React.FC<UpdateStockProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate=useNavigate()
   const {id}=useParams<{id:string}>();
+  const {loading}=useSelector((state:RootState)=>state.sales)
 
   // Initialize Form Data
   const [formData, setFormData] = useState<InventoryData>({
@@ -61,7 +63,7 @@ const AddStock: React.FC<UpdateStockProps> = () => {
       alert('Failed to update stock. Please try again.');
     }
   };
-
+  if(loading) return <LoadingOverlay/>
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">

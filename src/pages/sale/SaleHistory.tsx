@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '../../features/store';
 import { getAllSales } from '../../features/sale/saleApi';
 import Button from '../../components/ui/button/Button';
 import { Link, useSearchParams } from 'react-router';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 const SaleHistory = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +44,7 @@ const SaleHistory = () => {
   };
 
   if (loading) {
-    return <div className="p-8 text-center text-blue-500 text-lg">Loading sales data...</div>;
+    return <LoadingOverlay/>;
   }
 
   if (error) {

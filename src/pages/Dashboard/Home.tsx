@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../features/store";
 import { toast } from "react-toastify";
 import { fetchDashboardAnalytics } from "../../features/admin/adminApi";
 import ChartTab, { ChartRange } from "../../components/common/ChartTab";
+import LoadingOverlay from "../../components/loader/LoadingOverlay";
 
 export default function Home() {
   const { user,error, success, message } = useSelector((state: RootState) => state.auth);
@@ -37,7 +38,7 @@ export default function Home() {
     
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <LoadingOverlay/>;
     }
   return (
     <>

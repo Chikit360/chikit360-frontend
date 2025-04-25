@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../features/store';
 import { deleteUser, fetchUsers } from '../../features/user/userApiThunk';
 import { PencilIcon, TrashBinIcon } from '../../icons';
+import LoadingOverlay from '../../components/loader/LoadingOverlay';
 
 const UserList = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { users } = useSelector((state: RootState) => state.users);
+  const { users,loading } = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  if(loading) return <LoadingOverlay/>
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white shadow rounded-xl mt-8">
