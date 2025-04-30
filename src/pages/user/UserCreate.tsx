@@ -64,7 +64,7 @@ const UserCreate = () => {
         <div>
         <Label required={true} >Role</Label>
         <Select name="role" options={[...roles.map(role => (
-          { value: role, label: role.charAt(0).toUpperCase() + role.slice(1) }
+          { value: role, label: role.split("_").map(item=>item.charAt(0).toUpperCase()+item.slice(1)).join(" ") }
           ))]} onChange={(selected)=>setFormData({ ...formData, role: selected?.value || 'customer' })} className="w-full px-3 py-2 rounded"/>
         </div>
           

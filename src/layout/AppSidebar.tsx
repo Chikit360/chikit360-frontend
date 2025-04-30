@@ -82,7 +82,7 @@ const othersItems: NavItem[] = [
     name: "Utility",
     subItems: [
       { name: "Strength", path: "/admin/strength", role: ["admin"], pro: false },
-      { name: "Form", path: "/admin/form", role: ["admin"], pro: false },
+      { name: "Medicine Type", path: "/admin/form", role: ["admin"], pro: false },
       { name: "User", path: "/admin/users/items", role: ["admin"], pro: false },
     ],
   },
