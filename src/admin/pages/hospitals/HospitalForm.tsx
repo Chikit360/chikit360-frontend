@@ -358,7 +358,7 @@ const HospitalForm = () => {
               {/* section 1  */}
 
               {/* Clinic Name */}
-              <div className="">
+              <div className="mb-5">
                 <Label required={true} >Pharmacy Name</Label>
                 <input
                   type="text"
@@ -368,7 +368,7 @@ const HospitalForm = () => {
                 />
                 {formErrors.name && <p className="text-red-500 text-sm">{formErrors.name}</p>}
               </div>
-              <div className="">
+              <div className="mb-5">
                 <Label required={true}>Admin Email</Label>
                 <input
                   type="text"
@@ -384,7 +384,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Specialties */}
-              {/* <div className="">
+              {/* <div className="mb-5">
                 <Label>Departments</Label>
                 <Select
                   isMulti
@@ -399,7 +399,7 @@ const HospitalForm = () => {
               </div> */}
 
               {/* Services Offered */}
-              <div className="">
+              <div className="mb-5">
                 <Label>Services Offered</Label>
                 <Select
                   isMulti
@@ -413,7 +413,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Accreditation */}
-              <div className="">
+              <div className="mb-5">
                 <Label>Accreditation</Label>
                 <input
                   type="text"
@@ -426,7 +426,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Year Established */}
-              <div className="">
+              <div className="mb-5">
                 <Label required={false}>Year Established</Label>
                 <input
                   type="number"
@@ -438,7 +438,7 @@ const HospitalForm = () => {
               </div>
 
               {/* License Number */}
-              <div className="">
+              <div className="mb-5">
                 <Label>License Number</Label>
                 <input
                   type="text"
@@ -450,7 +450,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Registration Number */}
-              <div className="">
+              <div className="mb-5">
                 <Label required={false}>Registration Number</Label>
                 <input
                   type="text"
@@ -462,7 +462,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Owner Name */}
-              <div className="">
+              <div className="mb-5">
                 <Label required={false}>Owner Name</Label>
                 <input
                   type="text"
@@ -474,7 +474,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Operational Details */}
-              <div className="">
+              <div className="mb-5">
                 <Label required={false}>Operational Details</Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                   {/* Open Days */}
@@ -538,7 +538,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Medical Equipment */}
-              <div className="">
+              <div className="mb-5">
                 <Label>Medical Equipment</Label>
                 <div className="flex flex-col gap-4">
                   {formData.medicalEquipment.map((item, index) => (
@@ -600,7 +600,7 @@ const HospitalForm = () => {
               </div>
 
               {/* Bed Capacity */}
-              <div className="">
+              <div className="mb-5">
                 <Label>Bed Capacity</Label>
                 <input
                   type="number"

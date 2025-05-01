@@ -64,10 +64,10 @@ const CreateMedicineForm = () => {
     name: faker.commerce.productName(),
     genericName: faker.lorem.word(),
     form: dropdowns.form.length
-      ? faker.helpers.arrayElement(dropdowns.form).value
+      ? faker.helpers.arrayElement(dropdowns.form).label
       : '',
     strength: dropdowns.strength.length
-      ? faker.helpers.arrayElement(dropdowns.strength).value
+      ? faker.helpers.arrayElement(dropdowns.strength).label
       : '',
     unit: faker.helpers.arrayElement(UNIT_ENUM),
     prescriptionRequired: faker.datatype.boolean(),
@@ -116,7 +116,7 @@ const CreateMedicineForm = () => {
                       name={key}
                       options={dropdowns[key]?.map((item: DropdownOption) => ({
                      label: item.label,
-                     value: item.value,
+                     value: item.label,
                      inputFieldName: item.inputFieldName || '',
                      status: item.status || ''
                    })) || [
@@ -129,10 +129,10 @@ const CreateMedicineForm = () => {
                    ]}
                      isLoading={DDLoading}
                      value={
-                         dropdowns[key]?.find((item: DropdownOption) => item.value === values[key]) || null
+                         dropdowns[key]?.find((item: DropdownOption) => item.label === values[key]) || null
                      }
                      onChange={(selectedOption) =>
-                         setFieldValue(key, selectedOption ? selectedOption.value : '')
+                         setFieldValue(key, selectedOption ? selectedOption.label : '')
                      }
                      className="react-select-container dark:bg-transparent"
                      classNamePrefix="react-select"

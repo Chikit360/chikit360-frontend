@@ -51,12 +51,12 @@ const StrengthDropDown = () => {
   const formik = useFormik({
     initialValues: {
       label: "",
-      value: "",
+   
       status: "active",
     },
     validationSchema: Yup.object({
       label: Yup.string().required("Label is required"),
-      value: Yup.string().required("Value is required"),
+     
       status: Yup.string().oneOf(["active", "inactive"], "Invalid status"),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -104,7 +104,7 @@ const StrengthDropDown = () => {
           <thead>
             <tr className="bg-gray-200">
               <th className="border px-4 py-2">Label</th>
-              <th className="border px-4 py-2">Value</th>
+              
               <th className="border px-4 py-2">Status</th>
               <th className="border px-4 py-2">Actions</th>
             </tr>
@@ -113,7 +113,7 @@ const StrengthDropDown = () => {
             {filteredData?.map((item: any) => (
               <tr key={item._id} className="text-center">
                 <td className="border px-4 py-2">{item.label}</td>
-                <td className="border px-4 py-2">{item.value}</td>
+                
                 <td className="border px-4 py-2">{item.status}</td>
                 <td className="border px-4 py-2 flex">
                   <span onClick={() => handleEdit(item)} className="text-blue-600 mr-2">
@@ -165,34 +165,6 @@ const StrengthDropDown = () => {
                 )}
               </div>
 
-              <div className="mb-3">
-                <div className="flex justify-between items-center">
-                  <label className="block font-medium">Value</label>
-                  <span className="flex justify-center items-center gap-1">
-                    <input
-                      type="checkbox"
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          formik.setFieldValue("value", formik.getFieldProps('label').value);
-                        } else {
-                          formik.setFieldValue("value", '');
-                        }
-                      }}
-                    />
-                    <label htmlFor="">same as label</label>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  name="value"
-                  value={formik.values.value}
-                  onChange={formik.handleChange}
-                  className="border px-3 py-2 w-full rounded"
-                />
-                {formik.touched.value && formik.errors.value && (
-                  <p className="text-red-500 text-sm">{formik.errors.value}</p>
-                )}
-              </div>
 
               <div className="mb-3">
                 <label className="block font-medium">Status</label>
