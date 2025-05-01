@@ -38,6 +38,7 @@ const store = configureStore({
     subscription:subscriptionReducer,
     offerPlan:offerPlanReducer,
     inquiry:inquiryReducer,
+    uploadFile:fileUploadReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),

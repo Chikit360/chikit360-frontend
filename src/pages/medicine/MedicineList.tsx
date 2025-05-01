@@ -64,7 +64,7 @@ export default function MedicineList() {
     setFile(null);
   };
 
-  if (loading|| fileUploadLoading) return <LoadingOverlay isLoading={true} />;
+  if (loading|| fileUploadLoading) return <LoadingOverlay />;
   if (error || fileUploadError) return <p>Error: {fileUploadError || error}</p>;
 
   if (medicines.length === 0) {
