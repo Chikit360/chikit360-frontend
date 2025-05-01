@@ -28,6 +28,7 @@ import OffersPlanList from "../pages/offersPlan/OffersPlanList";
 import OfferPlanDetail from "../pages/offersPlan/OfferPlanDetail";
 import UpdateOfferPlanDetail from "../pages/offersPlan/UpdateOfferPlanDetail";
 import CreateOfferPlan from "../pages/offersPlan/CreateOfferPlan";
+import FileUploadResponsePage from "../pages/FileUploadResponsePage";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -52,6 +53,7 @@ export const authRoutes = [
 
 
     { path: "/admin/dashboard",params:[], element: <SuperAdminDashboard /> },
+    { path: "/file-upload/response",params:[], element: <FileUploadResponsePage /> },
 
     
     { path: "/admin/strength",params:[], element: <StrengthDropDown /> },

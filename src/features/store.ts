@@ -17,6 +17,8 @@ import subscriptionReducer from './subscription/subscriptionSlice';
 import offerPlanReducer from './offerPlan/offerPlanSlice';
 import inquiryReducer from './inquiry/inquirySlice';
 
+import fileUploadReducer from './file-upload/fileUploadSlice';
+
 const store = configureStore({
   reducer: {
     admin: adminReducer,
@@ -29,6 +31,7 @@ const store = configureStore({
     sales: saleReducer,
     customers:customerReducer,
     dropDown:dropdownReducer,
+    
     notifications: notificationReducer,
     hospitals: hospitalReducer,
     notificationSetting:notificationSettingReducer,
