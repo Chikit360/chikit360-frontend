@@ -11,6 +11,7 @@ import Select from 'react-select'
 import Label from '../../components/form/Label';
 import { toast } from 'react-toastify';
 import { clearSalesMessage } from '../../features/sale/sale.slice';
+import BarcodeScanner from '../../components/scanner/BarCodescaner';
 
 interface DiscountTypeOptionIF {
   label: string,
@@ -244,10 +245,16 @@ const SaleForm: React.FC = () => {
       )
     );
   };
-
+  const handleDetected = (code: string) => {
+    alert(`Scanned: ${code}`);
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
+      <div>
+      <h2>📷 Barcode Scanner</h2>
+      <BarcodeScanner onDetected={handleDetected} />
+    </div>
       <div className="w-full md:w-[40%] border-gray-300 rounded-lg border p-8 mb-4 shadow bg-white dark:bg-white/[0.03]">
         <Formik
           initialValues={{ customerName: '', customerContact: '' }}
