@@ -9,6 +9,12 @@ interface UserData {
   role:string;
   token: string | null;
   hospital:string;
+  hospitalDetail?:{name:string,address:{
+    city:string,
+    state:string,
+    zipCode:string,
+    landmark:string
+  }};
 }
 
 interface User {

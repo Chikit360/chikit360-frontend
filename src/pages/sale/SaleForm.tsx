@@ -57,6 +57,9 @@ const SaleForm: React.FC = () => {
   const [discountAmountFinal, setDiscountAmountFinal] = useState<number>(0);
   const {error,message,success} = useSelector((state: RootState) => state.sales);
   const {selectedHospital} = useSelector((state: RootState) => state.hospitals);
+  const {user} = useSelector((state: RootState) => state.auth);
+
+  console.log(selectedHospital)
 
   const [, setPdfBlob] = useState<Blob | null>(null); // Store PDF Blob for preview
 
@@ -149,10 +152,10 @@ const SaleForm: React.FC = () => {
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(14);
-    doc.text(`${selectedHospital?.name}`, 200, 30, { align: 'right' });  // Right-align the invoice ID
+    doc.text(`${user?.hospitalDetail?.name}`, 200, 30, { align: 'right' });  // Right-align the invoice ID
     doc.setFontSize(10);
-    doc.text(`${selectedHospital?.address.city}`, 200, 35, { align: 'right' });  // Right-align the invoice ID
-    doc.text(`${selectedHospital?.address.landmark},${selectedHospital?.address.state},${selectedHospital?.address.zipCode}`, 200, 40, { align: 'right' });  // Right-align the invoice ID
+    doc.text(`${user?.hospitalDetail?.address.city}`, 200, 35, { align: 'right' });  // Right-align the invoice ID
+    doc.text(`${user?.hospitalDetail?.address.landmark},${user?.hospitalDetail?.address.state},${user?.hospitalDetail?.address.zipCode}`, 200, 40, { align: 'right' });  // Right-align the invoice ID
 
     // Add a Horizontal Line Below the Header (To separate the header section)
     doc.setLineWidth(0.5);
