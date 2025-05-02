@@ -13,10 +13,12 @@ import { DropdownOption } from '../../helpers/interfaces';
 import { toast } from 'react-toastify';
 import { clearMedicineMessage, } from '../../features/medicine/medicine.slice';
 import LoadingOverlay from '../../components/loader/LoadingOverlay';
+import BarcodeScanner from '../../components/scanner/BarCodescaner';
 
 const UNIT_ENUM = ['pieces', 'boxes', 'bottles', 'packs', 'strips'];
 
 const initialValues = {
+  barcode:'',
   name: '',
   genericName: '',
   form: '',
@@ -30,6 +32,7 @@ const initialValues = {
 
 
 const validationSchema = Yup.object().shape({
+  barcode:Yup.string().required('Barcode is required'),
   name: Yup.string().required('Medicine name is required'),
   genericName: Yup.string().optional(),
   form: Yup.string().optional(),
@@ -61,6 +64,7 @@ const CreateMedicineForm = () => {
   };
 
   const generateFakeData = () => ({
+    barcode: faker.number.bigInt().toString(),
     name: faker.commerce.productName(),
     genericName: faker.lorem.word(),
     form: dropdowns.form.length
@@ -88,6 +92,10 @@ const CreateMedicineForm = () => {
       dispatch(clearMedicineMessage())
     }
   }, [error, success, message]);
+  const handleDetected = (code: string) => {
+    alert(`Scanned: ${code}`);
+
+  };
 
   if(loading) return <LoadingOverlay/>
 
@@ -200,11 +208,13 @@ const CreateMedicineForm = () => {
                   Generate Fake Data
                 </button>
               </div>
+
+              <BarcodeScanner onDetected={(value)=>setFieldValue('barcode',value)} />
             </Form>
           )}
         </Formik>
       </div>
-
+       
       <ConfirmationPopup
         title="Alert"
         message="Do you want to add inventory right now?"
