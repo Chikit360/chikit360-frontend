@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '../../icons';
 interface Scheme {
   price: number;
   validityInDays: number;
-  discount: number;
+  discount?: number;
 }
 
 interface Plan {

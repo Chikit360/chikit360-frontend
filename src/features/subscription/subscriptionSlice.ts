@@ -3,17 +3,20 @@ import {
     fetchCurrSubscription,
   createSubscription,
   cancelSubscription,
+  allSubscriptionByHospitalId,
 } from "./subscriptionApiThunk";
 import { SubscriptionI } from "../../helpers/subscriptionInterface";
 
 interface SubscriptionState {
   data: SubscriptionI | null;
+  subscriptions: SubscriptionI[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: SubscriptionState = {
   data: null,
+  subscriptions:[],
   loading: false,
   error: null,
 };
@@ -38,6 +41,18 @@ const subscriptionSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchCurrSubscription.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(allSubscriptionByHospitalId.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(allSubscriptionByHospitalId.fulfilled, (state, action) => {
+        state.loading = false;
+        state.subscriptions = action.payload;
+      })
+      .addCase(allSubscriptionByHospitalId.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })

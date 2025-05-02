@@ -1,7 +1,7 @@
 export interface SchemeI {
     price: number;
     validityInDays: number;
-    discount: number;
+    discount?: number;
   }
 export interface FeatureI {
     key?: string;

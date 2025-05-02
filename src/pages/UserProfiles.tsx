@@ -1,10 +1,8 @@
 import UserMetaCard from "../components/UserProfile/UserMetaCard";
 import UserInfoCard from "../components/UserProfile/UserInfoCard";
-import UserAddressCard from "../components/UserProfile/UserAddressCard";
 import PageMeta from "../components/common/PageMeta";
 import NotificationSettings from "../components/notofication/Notification";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 import { AppDispatch, RootState } from "../features/store";
 import { useEffect } from "react";
 import { getHospitalById } from "../features/hospitals/hospitalApi";

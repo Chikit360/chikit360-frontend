@@ -60,8 +60,8 @@ const SubscriptionPlan = () => {
       const razorpayInstance = new Razorpay(options);
       razorpayInstance.open();
       
-    } catch (error) {
-      console.log(error.response.data.message)
+    } catch (error:any) {
+     
       if(error){
         toast.error(error.response.data.message)
       }

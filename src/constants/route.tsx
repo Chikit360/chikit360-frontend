@@ -29,6 +29,7 @@ import OfferPlanDetail from "../pages/offersPlan/OfferPlanDetail";
 import UpdateOfferPlanDetail from "../pages/offersPlan/UpdateOfferPlanDetail";
 import CreateOfferPlan from "../pages/offersPlan/CreateOfferPlan";
 import FileUploadResponsePage from "../pages/FileUploadResponsePage";
+import AllSubscription from "../pages/subscription/AllSubscription";
 
 export const authRoutes = [
     { path: "/signin", element: <SignIn /> },
@@ -48,6 +49,7 @@ export const authRoutes = [
     { path: "/customer/:id/purchase-history",params:["id"], element: <CustomerHistory /> },
     { path: "/customer-list",params:[], element: <CustomerList /> },
     { path: "/profile",params:[], element: <UserProfiles /> },
+    { path: "/subscription/items",params:["offerId"], element: <AllSubscription /> },
     { path: "/subscription/:offerId",params:["offerId"], element: <SubscriptionPlan /> },
 
 

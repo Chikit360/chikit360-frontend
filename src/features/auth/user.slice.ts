@@ -4,12 +4,13 @@ import { loginUser, logoutUser } from './authApi';
 import Cookies from 'js-cookie';
 
 interface UserData {
+  _id:string;
   username: string;
   email: string;
   role:string;
   token: string | null;
   hospital:string;
-  hospitalDetail?:{name:string,address:{
+  hospitalDetail?:{_id:string;name:string,address:{
     city:string,
     state:string,
     zipCode:string,

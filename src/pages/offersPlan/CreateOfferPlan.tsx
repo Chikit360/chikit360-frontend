@@ -115,7 +115,8 @@ const CreateOfferPlan: React.FC = () => {
     setFormData({ ...formData, scheme: updated });
   };
 
-  const handleRemove = (field: string, index: number) => {
+  type ArrayFields = 'features' | 'scheme' | 'extraAddOn'; // adjust based on actual OfferPlanI shape
+  const handleRemove = (field: ArrayFields, index: number) => {
     const updated = formData[field].filter((_, i) => i !== index);
     setFormData({ ...formData, [field]: updated });
   };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 
 
 import { Link, useSearchParams } from 'react-router';
@@ -16,7 +16,7 @@ import { PencilIcon, TrashBinIcon } from '../../../icons';
 export default function HospitalList() {
   const { hospitals, loading, error, message } = useSelector((state: RootState) => state.hospitals);  // Renamed clinics to hospitals
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
+ 
   const [filteredData, setFilteredData] = useState<IHospital[]>([]);  // Changed Clinic to Hospital
 
   useEffect(() => {

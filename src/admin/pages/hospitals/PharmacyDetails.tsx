@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { AppDispatch, RootState } from '../../../features/store';
 import { getHospitalById } from '../../../features/hospitals/hospitalApi';
 import { fetchDashboardAnalytics } from '../../../features/admin/adminApi';
-import { fetchCurrSubscription } from '../../../features/subscription/subscriptionApiThunk';
+import { allSubscriptionByHospitalId, fetchCurrSubscription } from '../../../features/subscription/subscriptionApiThunk';
 import SubscriptionInfo from '../../../components/subscription/SubscriptionInfo';
 import LoadingOverlay from '../../../components/loader/LoadingOverlay';
 
@@ -20,16 +20,17 @@ const PharmacyDetails = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { selectedHospital, loading } = useSelector((state: RootState) => state.hospitals);
   const { dashboardData } = useSelector((state: RootState) => state.admin);
-  const {data:subscriptionData}=useSelector(((state:RootState) => state.subscription))
+  const { data: subscriptionData, subscriptions } = useSelector(((state: RootState) => state.subscription))
 
   useEffect(() => {
     dispatch(getHospitalById(id || ''));
-    dispatch(fetchDashboardAnalytics({selected:"daily",hospitalId:id!}));
-     dispatch(fetchCurrSubscription(id!))
+    dispatch(fetchDashboardAnalytics({ selected: "daily", hospitalId: id! }));
+    dispatch(fetchCurrSubscription(id!))
+    dispatch(allSubscriptionByHospitalId(id!))
   }, [dispatch, id]);
 
   if (loading || !selectedHospital) {
-    return <LoadingOverlay/>;
+    return <LoadingOverlay />;
   }
 
   const hospital = selectedHospital;
@@ -98,6 +99,61 @@ const PharmacyDetails = () => {
       </div>
       <DashboardAnalytics data={dashboardData!} />
       <SubscriptionInfo subscription={subscriptionData!} />
+      <h1 className="text-2xl font-bold mb-4">Hospital Subscription List</h1>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300 rounded-lg">
+          <thead className="bg-gray-100 text-gray-700">
+            <tr>
+              
+              <th className="px-4 py-2 border">Plan</th>
+              <th className="px-4 py-2 border">Price</th>
+              <th className="px-4 py-2 border">Start Date</th>
+              <th className="px-4 py-2 border">End Date</th>
+              <th className="px-4 py-2 border">Razorpay Order ID</th>
+              <th className="px-4 py-2 border">Transaction ID</th>
+              <th className="px-4 py-2 border">Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            {subscriptions?.map((subscription) => (
+              <tr key={subscription._id} className="text-center">
+                
+                <td className="px-4 py-2 border">{subscription.plan}</td>
+                <td className="px-4 py-2 border">₹{subscription.price}</td>
+                <td className="px-4 py-2 border">{subscription.startDate}</td>
+                <td className="px-4 py-2 border">{subscription.endDate}</td>
+                <td className="px-4 py-2 border">{subscription.razorpayOrderId || "-"}</td>
+                <td className="px-4 py-2 border">{subscription.transactionId || "-"}</td>
+                <td className="px-4 py-2 border">
+  <label className="inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      checked={subscription.isActive}
+      readOnly
+      className="sr-only peer"
+    />
+    <div
+      className={`w-11 h-6 rounded-full peer peer-focus:ring-2 transition-all duration-300 relative ${
+        subscription.isActive ? "bg-green-500" : "bg-red-500"
+      }`}
+    >
+      <div
+        className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-all duration-300 ${
+          subscription.isActive ? "translate-x-full" : ""
+        }`}
+      ></div>
+    </div>
+  </label>
+</td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
   );
 };

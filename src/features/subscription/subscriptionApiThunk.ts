@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { SubscriptionI } from "../../helpers/subscriptionInterface";
 import { axiosInstance } from "../../utils/axiosInstance";
 
@@ -47,6 +46,17 @@ export const cancelSubscription = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.put(`/subscription/cancel/${id}`);
+      return data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+export const allSubscriptionByHospitalId = createAsyncThunk(
+  "subscription/allSubscriptionByHospitalId",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(`/subscription/${id}`);
       return data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);

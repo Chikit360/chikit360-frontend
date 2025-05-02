@@ -14,7 +14,7 @@ interface UserData {
     role:string;
     token: string | null;
     hospital:string;
-    hospitalDetail?:{name:string,address:{
+    hospitalDetail?:{_id:string;name:string,address:{
       city:string,
       state:string,
       zipCode:string,
@@ -57,7 +57,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.users.push(action.payload);
       })
-      .addCase(createUser.rejected, (state, action) => {
+      .addCase(createUser.rejected, (state, _) => {
         state.loading = false;
         state.error =  'Failed to create user, try another email';
       })

@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 
 
-import { axiosInstance } from "../../utils/axiosInstance";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../features/store";
-import { CheckCircleIcon, CloseLineIcon, LockIcon } from "../../icons";
-import { useState } from "react";
+import { CheckCircleIcon, LockIcon } from "../../icons";
+
 import { ExtraAddOn } from "../../helpers/offerPlanInterface";
 import SchemeSlider from "../../components/scheme-slider/SchemeSlider";
 

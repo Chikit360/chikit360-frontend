@@ -12,6 +12,7 @@ export interface SubscriptionI {
     isActive: boolean;
     isCancelled: boolean;
     paymentMethod: string;
+    razorpayOrderId: string;
     transactionId: string;
     subscriptionToken: string;
     extraAddOn:ExtraAddOn[

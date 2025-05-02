@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusIcon, TrashBinIcon } from '../../icons';
-import { createOfferPlan, updateOfferPlan } from '../../features/offerPlan/offerPlanApiThunk';
+import {  updateOfferPlan } from '../../features/offerPlan/offerPlanApiThunk';
 import { AppDispatch, RootState } from '../../features/store';
 import Select from 'react-select';
 import { useParams } from 'react-router';
@@ -26,7 +26,7 @@ const schemeOptions = [
 ];
 
 const UpdateOfferPlanDetail: React.FC = () => {
-  const {loading,error,message,success}=useSelector((state:RootState)=>state.offerPlan)
+  const { loading, error, message, success } = useSelector((state: RootState) => state.offerPlan)
   const dispatch = useDispatch<AppDispatch>();
   const { offerId } = useParams();
   const plans = useSelector((state: RootState) => state.offerPlan.plans);
@@ -38,7 +38,7 @@ const UpdateOfferPlanDetail: React.FC = () => {
     scheme: [] as SchemeI[],
     description: '',
     color: '',
-    features: [{label:'',description:'',isEnabled:true}],
+    features: [{ label: '', description: '', isEnabled: true }],
     initialSetUpPrice: 0,
     extraAddOn: [{ title: '', price: 0 }],
     limits: {
@@ -56,7 +56,7 @@ const UpdateOfferPlanDetail: React.FC = () => {
     if (plan) {
       setFormData(plan);
     }
-  }, [plan,offerId]);
+  }, [plan, offerId]);
 
   const handleAddExtraAddOn = () => {
     setFormData({
@@ -74,7 +74,7 @@ const UpdateOfferPlanDetail: React.FC = () => {
   const handleFeatureAdd = () => {
     setFormData({
       ...formData,
-      features: [...formData.features, { label: '', description: '',isEnabled:true }],
+      features: [...formData.features, { label: '', description: '', isEnabled: true }],
     });
   };
 
@@ -86,9 +86,10 @@ const UpdateOfferPlanDetail: React.FC = () => {
     );
     setFormData({ ...formData, features: updatedFeatures });
   };
-  
-  const handleRemove = (field:string,index: number) => {
-    const updated = formData[field].filter((_, i) => i !== index);
+
+  type ArrayFields = 'features' | 'scheme' | 'extraAddOn'; // adjust based on actual OfferPlanI shape
+  const handleRemove = (field: ArrayFields, index: number) => {
+    const updated = formData[field].filter((_:any, i:any) => i !== index);
     setFormData({ ...formData, [field]: updated });
   };
 
@@ -126,23 +127,23 @@ const UpdateOfferPlanDetail: React.FC = () => {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(updateOfferPlan({id:offerId!,data:formData}));
+    dispatch(updateOfferPlan({ id: offerId!, data: formData }));
   };
 
   useEffect(() => {
-    
+
     if (error) {
       toast.error(message);
       // Optionally, clear the error state here if needed
     }
-  
+
     if (success && message) {
       toast.success(message);
       // Optionally, reset success state here if needed
     }
   }, [error, success, message]);
 
-  if(loading) return <LoadingOverlay/>
+  if (loading) return <LoadingOverlay />
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div>
@@ -163,57 +164,57 @@ const UpdateOfferPlanDetail: React.FC = () => {
 
         <textarea placeholder="Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className='h-[120px] w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white'></textarea>
 
-    <div className="mt-4">
-              <div className="flex items-center justify-start gap-1.5 mb-2">
-                <label className="font-medium text-lg">Scheme</label>
-                <button type="button" onClick={handleAddScheme} className="text-pink-600 hover:text-pink-800">
-                  <PlusIcon width={20} />
-                </button>
-              </div>
-              {formData.scheme.map((item, index) => (
-  <div key={index} className="flex items-center gap-4 mb-2">
-    <Select
-      value={{
-        label: schemeOptions.find(option => option.value.price === item.price && option.value.validityInDays === item.validityInDays)?.label || "Select Scheme",
-        value: item,
-      }}
-      options={schemeOptions}
-      onChange={(selected) => {
-        if (!selected) return;
+        <div className="mt-4">
+          <div className="flex items-center justify-start gap-1.5 mb-2">
+            <label className="font-medium text-lg">Scheme</label>
+            <button type="button" onClick={handleAddScheme} className="text-pink-600 hover:text-pink-800">
+              <PlusIcon width={20} />
+            </button>
+          </div>
+          {formData.scheme.map((item, index) => (
+            <div key={index} className="flex items-center gap-4 mb-2">
+              <Select
+                value={{
+                  label: schemeOptions.find(option => option.value.price === item.price && option.value.validityInDays === item.validityInDays)?.label || "Select Scheme",
+                  value: item,
+                }}
+                options={schemeOptions}
+                onChange={(selected) => {
+                  if (!selected) return;
 
-        const updatedScheme = [...formData.scheme];
-        updatedScheme[index] = {
-          ...updatedScheme[index],
-          price: selected.value.price,
-          validityInDays: selected.value.validityInDays,
-        };
+                  const updatedScheme = [...formData.scheme];
+                  updatedScheme[index] = {
+                    ...updatedScheme[index],
+                    price: selected.value.price,
+                    validityInDays: selected.value.validityInDays,
+                  };
 
-        setFormData(prev => ({
-          ...prev,
-          scheme: updatedScheme,
-        }));
-      }}
-      placeholder="Select Scheme"
-      className="text-sm w-full"
-    />
+                  setFormData(prev => ({
+                    ...prev,
+                    scheme: updatedScheme,
+                  }));
+                }}
+                placeholder="Select Scheme"
+                className="text-sm w-full"
+              />
 
-    <input
-      type="number"
-      placeholder="Discount"
-      className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-      value={item.discount}
-      onChange={(e) => handleSchemeChange(index, "discount", e.target.value)}
-    />
+              <input
+                type="number"
+                placeholder="Discount"
+                className="h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                value={item.discount}
+                onChange={(e) => handleSchemeChange(index, "discount", e.target.value)}
+              />
 
-    <TrashBinIcon
-      width={30}
-      className="text-red-400 cursor-pointer hover:text-red-600"
-      onClick={() => handleRemove("scheme", index)}
-    />
-  </div>
-))}
-
+              <TrashBinIcon
+                width={30}
+                className="text-red-400 cursor-pointer hover:text-red-600"
+                onClick={() => handleRemove("scheme", index)}
+              />
             </div>
+          ))}
+
+        </div>
         <div className="mt-4">
           <div className="flex items-center justify-start gap-1.5 mb-2">
             <label className="font-medium text-lg">Feature</label>
@@ -221,13 +222,13 @@ const UpdateOfferPlanDetail: React.FC = () => {
               <PlusIcon width={20} />
             </button>
           </div>
-          
+
           {formData.features.map((item, index) => (
             <div key={index} className="flex items-center  gap-4 mb-2">
               <input type="text" placeholder="Label" value={item.label} onChange={(e) => handleFeatureChange(index, 'label', e.target.value)} className='h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white' />
               <input type="text" placeholder="Description" value={item.description} onChange={(e) => handleFeatureChange(index, 'description', e.target.value)} className='h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white' />
               <input type="checkbox" placeholder="Enabled" checked={item.isEnabled} onChange={(e) => handleFeatureChange(index, 'isEnabled', e.target.checked)} className='' />
-              <TrashBinIcon width={30} className='text-red-400' onClick={()=>handleRemove('features',index)} />
+              <TrashBinIcon width={30} className='text-red-400' onClick={() => handleRemove('features', index)} />
             </div>
           ))}
         </div>
@@ -238,12 +239,12 @@ const UpdateOfferPlanDetail: React.FC = () => {
               <PlusIcon width={20} />
             </button>
           </div>
-          
+
           {formData.extraAddOn.map((item, index) => (
             <div key={index} className="flex items-center gap-4 mb-2">
               <input type="text" placeholder="Title" value={item.title} onChange={(e) => handleExtraAddOnChange(index, 'title', e.target.value)} className='h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white' />
               <input type="number" placeholder="Price" value={item.price} onChange={(e) => handleExtraAddOnChange(index, 'price', e.target.value)} className='h-9 w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 pr-11 text-sm shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white' />
-              <TrashBinIcon width={30} className='text-red-400' onClick={()=>handleRemove('extraAddOn',index)} />
+              <TrashBinIcon width={30} className='text-red-400' onClick={() => handleRemove('extraAddOn', index)} />
             </div>
           ))}
         </div>

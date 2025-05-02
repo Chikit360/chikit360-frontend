@@ -22,7 +22,6 @@ import { useSelector } from "react-redux";
 import { getUserRole } from "../features/auth/user.slice";
 import { RootState } from "../features/store";
 import { Modal } from "../components/ui/modal";
-import { ExtraAddOn } from "../helpers/offerPlanInterface";
 
 
 type NavItem = {
@@ -48,6 +47,11 @@ const navItems: NavItem[] = [
     name: "Sale",
     subItems: [{ name: "Sale List", path: "/sale", pro: false }, { name: "Customer", path: "/customer-list", pro: false },],
   },
+  {
+    icon: <ListIcon />,
+    name: "Subscription",
+    subItems: [{ name: "Items", path: "/subscription/items", pro: false }],
+  },
 
 ];
 const superAdminNavItems: NavItem[] = [
@@ -71,6 +75,7 @@ const superAdminNavItems: NavItem[] = [
     name: "Offers",
     subItems: [{ name: "Items", path: "/admin/offers-plan/items", pro: false }],
   },
+ 
 
 
 
