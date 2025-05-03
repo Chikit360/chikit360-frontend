@@ -4,6 +4,7 @@ import { loginUser, logoutUser } from './authApi';
 import Cookies from 'js-cookie';
 
 interface UserData {
+  _id:string;
   username: string;
   email: string;
   role:string;

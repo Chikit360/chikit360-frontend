@@ -3,6 +3,7 @@ import {activeMedicines } from './medicineApi';
 
 interface Medicine {
   _id:string,
+  barcode:string;
   medicineId: string;
   name: string;
   genericName: string;

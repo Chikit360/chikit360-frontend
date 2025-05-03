@@ -12,6 +12,7 @@ import Label from '../../components/form/Label';
 import { toast } from 'react-toastify';
 import { clearSalesMessage } from '../../features/sale/sale.slice';
 import BarcodeScanner from '../../components/scanner/BarCodescaner';
+import useRealTimeScannerData from '../../hooks/useRealTimeScannerData';
 
 interface DiscountTypeOptionIF {
   label: string,
@@ -51,6 +52,7 @@ interface SaleData {
 const SaleForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { activeMedicineList } = useSelector((state: RootState) => state.activeMedicines);
+  const { user } = useSelector((state: RootState) => state.auth);
   const [discountType, setDiscountType] = useState<DiscountTypeOptionIF | null>(discountTypeOptions[0]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [_, setSelectedMedicineId] = useState<string>('');
@@ -245,9 +247,22 @@ const SaleForm: React.FC = () => {
       )
     );
   };
-  const handleDetected = (code: string) => {
-    alert(`Scanned: ${code}`);
-  };
+  const barcodeData = useRealTimeScannerData(user?._id!);
+  useEffect(() => {
+    console.log(barcodeData)
+    if (barcodeData) {
+      console.log(activeMedicineList)
+      const selectedMedicine=activeMedicineList.find(item=>item.barcode==barcodeData);
+      console.log(selectedMedicine)
+      if(selectedMedicine){
+
+        handleAddToCart(selectedMedicine)
+      }
+      else{
+        toast.error("Medicine is not active")
+      }
+    };
+  }, [barcodeData]);
 
   return (
     <>
@@ -425,10 +440,10 @@ const SaleForm: React.FC = () => {
       
 
     </div>
-    <div className='flex justify-start items-start flex-col'>
+    {/* <div className='flex justify-start items-start flex-col'>
       <h2> Barcode Scanner</h2>
       <BarcodeScanner onDetected={handleDetected} />
-    </div>
+    </div> */}
     </>
   );
 };
