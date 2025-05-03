@@ -11,7 +11,10 @@ export const loginUser = createAsyncThunk(
   'users/loginUser',
   async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, credentials)
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, credentials,{ headers: {
+        'Content-Type': 'application/json',
+        'scanner':'false'
+      },})
       console.log(response.data)
       return response.data
     } catch (error: any) {

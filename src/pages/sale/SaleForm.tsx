@@ -11,6 +11,8 @@ import Select from 'react-select'
 import Label from '../../components/form/Label';
 import { toast } from 'react-toastify';
 import { clearSalesMessage } from '../../features/sale/sale.slice';
+import BarcodeScanner from '../../components/scanner/BarCodescaner';
+import useRealTimeScannerData from '../../hooks/useRealTimeScannerData';
 
 interface DiscountTypeOptionIF {
   label: string,
@@ -247,10 +249,27 @@ const SaleForm: React.FC = () => {
       )
     );
   };
+  const barcodeData = useRealTimeScannerData(user?._id!);
+  useEffect(() => {
+    console.log(barcodeData)
+    if (barcodeData) {
+      console.log(activeMedicineList)
+      const selectedMedicine=activeMedicineList.find(item=>item.barcode==barcodeData);
+      console.log(selectedMedicine)
+      if(selectedMedicine){
 
+        handleAddToCart(selectedMedicine)
+      }
+      else{
+        toast.error("Medicine is not active")
+      }
+    };
+  }, [barcodeData]);
 
   return (
+    <>
     <div className="flex flex-col md:flex-row gap-4">
+     
       <div className="w-full md:w-[40%] border-gray-300 rounded-lg border p-8 mb-4 shadow bg-white dark:bg-white/[0.03]">
         <Formik
           initialValues={{ customerName: '', customerContact: '' }}
@@ -420,9 +439,14 @@ const SaleForm: React.FC = () => {
         </div>
       </div>
 
-
+      
 
     </div>
+    {/* <div className='flex justify-start items-start flex-col'>
+      <h2> Barcode Scanner</h2>
+      <BarcodeScanner onDetected={handleDetected} />
+    </div> */}
+    </>
   );
 };
 

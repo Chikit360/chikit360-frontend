@@ -4,6 +4,7 @@ import { GlobalErrorPayload } from '../../helpers/interfaces';
 
 interface Medicine {
   _id:string,
+  barcode:string;
   medicineId: string;
   medicineCode:string,
   name: string;
