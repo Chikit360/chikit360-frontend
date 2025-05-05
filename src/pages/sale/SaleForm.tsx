@@ -11,7 +11,6 @@ import Select from 'react-select'
 import Label from '../../components/form/Label';
 import { toast } from 'react-toastify';
 import { clearSalesMessage } from '../../features/sale/sale.slice';
-import BarcodeScanner from '../../components/scanner/BarCodescaner';
 import useRealTimeScannerData from '../../hooks/useRealTimeScannerData';
 
 interface DiscountTypeOptionIF {
